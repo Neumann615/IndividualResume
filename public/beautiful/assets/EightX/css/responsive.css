@@ -1,0 +1,185 @@
+/* Normal desktop :992px. */
+@media only screen and (min-width: 992px) and (max-width: 1169px) {
+.single-portfolio:hover .portfolio-hover h2 {
+  margin-top: 45px;
+}
+
+}
+/* Tablet desktop :768px. */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+.about-image img {
+  margin: 0;
+}
+.hobbies ul li {
+  width: 20%;
+}
+.resume-wrapper.education {
+  margin-bottom: 70px;
+}
+.sin-blog:nth-child(2) {
+  margin-top: 30px;
+}
+
+}
+/* Large Mobile :480px. */
+@media only screen and (max-width: 767px) {
+.container {
+  width: 450px;
+}
+.section-wrapper, .page-wrapper {
+  padding: 70px 0;
+}
+.section-title h1 {
+  font-size: 30px;
+  line-height: 30px;
+  margin-right: 20px;
+  padding-right: 20px;
+}
+.section-title h1::before {
+  top: 8px;
+}
+.section-title p {
+  line-height: 30px;
+}
+.home-wrapper {
+  display: block;
+  margin: 0 auto;
+  width: 300px;
+}
+.hero-content {
+  margin-bottom: 30px;
+}
+.navigation ul {
+  margin-left: -10px;
+  margin-right: -10px;
+}
+.navigation ul li {
+  height: 86px;
+  margin-left: 10px;
+  margin-right: 10px;
+  width: 86px;
+}
+.navigation ul li a .icon {
+  font-size: 30px;
+  line-height: 86px;
+}
+.navigation ul li a .icon-bg {
+  bottom: -50px;
+  font-size: 50px;
+  height: 50px;
+  right: -50px;
+  width: 50px;
+}
+.navigation ul li a .text {
+  font-size: 13px;
+  line-height: 86px;
+}
+.about-image img {
+  height: 200px;
+  margin: 0;
+  width: 200px;
+}
+.resume-wrapper.education {
+  margin-bottom: 70px;
+}
+.single-resume {
+  padding: 0 0 0 50px;
+}
+.single-portfolio:hover .portfolio-hover h2 {
+  margin-top: 80px;
+}
+.single-service:last-child {
+  margin-bottom: 0 ;
+}
+.sin-blog:nth-child(2) {
+  margin-top: 30px;
+}
+.contact-info {
+  margin-bottom: 70px;
+}
+.single-blog-content {
+  padding: 30px 0;
+}
+.comment-wrapper, .comment-form-wrapper {
+  padding: 0;
+}
+.sin-comment.child-comment {
+  padding-left: 0;
+}
+
+}
+/* small mobile :320px. */
+@media only screen and (max-width: 479px) {
+.container {
+  width: 300px;
+}
+.section-title h1 {
+  display: block;
+  float: none;
+  font-size: 24px;
+  line-height: 24px;
+  margin: 0;
+  padding: 0;
+}
+.section-title h1::before {
+  display: none;
+}
+.section-title p {
+  font-size: 14px;
+  line-height: 24px;
+}
+.title-label-2 i {
+  font-size: 20px;
+  line-height: 24px;
+}
+.title-label-2 h2 {
+  font-size: 20px;
+  line-height: 24px;
+}
+.about-me a.button + a.button {
+  margin-top: 15px;
+}
+.per-info ul li span {
+  margin-right: 20px;
+  width: 85px;
+}
+.hobbies ul li {
+  width: 100%;
+}
+.portfolio-hover h2 {
+  font-size: 18px;
+  margin-top: 50px;
+}
+.single-portfolio:hover .portfolio-hover h2 {
+  margin-top: 30px;
+}
+.portfolio-hover p {
+  margin-top: 20px;
+}
+.blog-content {
+  padding: 10px 15px;
+}
+.blog-content h2 {
+  font-size: 18px;
+}
+.blog-content .blog-meta a, .blog-content .blog-meta span {
+  font-size: 12px;
+}
+.single-blog-content h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+.single-blog-content .blog-meta a, .single-blog-content .blog-meta span {
+  font-size: 12px;
+  margin-right: 10px;
+}
+.comment-wrapper h2, .comment-form-wrapper h2 {
+  font-size: 18px;
+}
+.comment-avatar {
+  float: none;
+  margin-bottom: 20px;
+  margin-right: 0;
+}
+
+}

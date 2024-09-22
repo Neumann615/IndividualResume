@@ -1,0 +1,29 @@
+.confetti{
+   max-width: 100%;
+   display: block;
+   margin: 0 auto;
+   user-select: none;
+}
+
+body
+{
+      cursor: pointer;
+}
+.name
+{
+     font-weight: 900;
+  
+    padding: 36px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    text-align: center;
+    top: 20%;
+    color: rebeccapurple;
+ 
+    font-size: 93px;
+ 
+    text-shadow: 2px 4px 11px rgb(0 0 0 / 28%);
+      -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: white;
+}

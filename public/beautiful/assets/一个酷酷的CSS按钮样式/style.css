@@ -1,0 +1,135 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  background: #222;
+  min-height: 100svh;
+  display: flex;
+  gap: 2rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-image: url("https://images.unsplash.com/photo-1716690449483-598c9f7fe0d0?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MTk5MTAyMzN8&ixlib=rb-4.0.3&q=85");
+  background-position: center;
+  background-size: cover;
+}
+
+button.clipped {
+  --_border: 2px;
+  --_border-clr: rgba(255,255,255,.9);
+  --_corner-offset: 12px;
+  --_corner-offset-inner: calc(var(--_corner-offset) - var(--_border)); /* slightly less than outer border */
+  --_corner-gradient-start: 0px;
+  --_corner-gradient-end: 8px; 
+  --_corner-gradient-end-inner: calc(var(--_corner-gradient-end) - var(--_border)); /* slightly less than outer border */
+  --_border-inner-offset: 3px;
+
+  background: #444;
+  color: #fff;
+  border: none;
+  padding: .75em 1.5em;
+  width: fit-content;
+  font-size: clamp(1rem, 2.5vw, 1.7rem);
+  font-weight: 300;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  border: var(--_border) solid var(--_border-clr);
+  clip-path: polygon(
+    var(--_corner-offset) 0,
+    calc(100% - var(--_corner-offset)) 0,
+    100% var(--_corner-offset),
+    100% calc(100% - var(--_corner-offset)),
+    calc(100% - var(--_corner-offset)) 100%,
+    var(--_corner-offset) 100%,
+    0 calc(100% - var(--_corner-offset)),
+    0 var(--_corner-offset)
+  );
+  background: linear-gradient(
+      135deg,
+      rgba(0, 0, 0, 0) var(--_corner-gradient-start),
+      var(--_border-clr) var(--_corner-gradient-end),
+      rgba(0, 0, 0, 0) var(--_corner-gradient-end)
+    ),
+    linear-gradient(
+      225deg,
+      rgba(0, 0, 0, 0) var(--_corner-gradient-start),
+      var(--_border-clr) var(--_corner-gradient-end),
+      rgba(0, 0, 0, 0) var(--_corner-gradient-end)
+    ),
+    linear-gradient(
+      315deg,
+      rgba(0, 0, 0, 0) var(--_corner-gradient-start),
+      var(--_border-clr) var(--_corner-gradient-end),
+      rgba(0, 0, 0, 0) var(--_corner-gradient-end)
+    ),
+    linear-gradient(
+      45deg,
+      rgba(0, 0, 0, 0) var(--_corner-gradient-start),
+      var(--_border-clr) var(--_corner-gradient-end),
+      rgba(0, 0, 0, 0) var(--_corner-gradient-end)
+    );
+  background-position: top left, top right, bottom right, bottom left;
+  background-size: 50% 50%;
+  background-repeat: no-repeat;
+  transition: color 300ms ease-in-out;
+  backdrop-filter: blur(2px);
+  position: relative;
+}
+button.clipped::before {
+  content: "";
+  position: absolute;
+  inset: var(--_border-inner-offset);
+  border: inherit;
+  clip-path: polygon(
+    var(--_corner-offset-inner) 0,
+    calc(100% - var(--_corner-offset-inner)) 0,
+    100% var(--_corner-offset-inner),
+    100% calc(100% - var(--_corner-offset-inner)),
+    calc(100% - var(--_corner-offset-inner)) 100%,
+    var(--_corner-offset-inner) 100%,
+    0 calc(100% - var(--_corner-offset-inner)),
+    0 var(--_corner-offset-inner)
+  );
+/*  background-image: var(--_corners);*/
+  background-image:  linear-gradient(
+      135deg,
+      rgba(0, 0, 0, 0) var(--_corner-gradient-start),
+      var(--_border-clr) var(--_corner-gradient-end-inner),
+      rgba(0, 0, 0, 0) var(--_corner-gradient-end-inner)
+    ),
+    linear-gradient(
+      225deg,
+      rgba(0, 0, 0, 0) var(--_corner-gradient-start),
+      var(--_border-clr) var(--_corner-gradient-end-inner),
+      rgba(0, 0, 0, 0) var(--_corner-gradient-end-inner)
+    ),
+    linear-gradient(
+      315deg,
+      rgba(0, 0, 0, 0) var(--_corner-gradient-start),
+      var(--_border-clr) var(--_corner-gradient-end-inner),
+      rgba(0, 0, 0, 0) var(--_corner-gradient-end-inner)
+    ),
+    linear-gradient(
+      45deg,
+      rgba(0, 0, 0, 0) var(--_corner-gradient-start),
+      var(--_border-clr) var(--_corner-gradient-end-inner),
+      rgba(0, 0, 0, 0) var(--_corner-gradient-end-inner)
+    );
+  background-position: top left, top right, bottom right, bottom left;
+  background-size: 50% 50%;
+  background-repeat: no-repeat;
+  transition: background-color 300ms ease-in-out;
+  z-index: -1;
+}
+
+button.clipped:hover{
+  color: teal;
+}
+button.clipped:hover::before {
+  background-color: white;
+}

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.2/p5.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+<script>
+    let pointSpacing = 24;
+    let waveAmplitude = 4;
+    let waveFrequency = 200;
+
+    function setup() {
+        createCanvas(windowWidth, windowHeight);
+    }
+
+    function draw() {
+        background(255);
+        fill(0); // 设置点为实心且黑色
+        for (let x = 0; x < width; x += pointSpacing) {
+            for (let y = 0; y < height; y += pointSpacing) {
+                let waveOffset = sin(x * waveFrequency + frameCount * 0.05) * waveAmplitude;
+                ellipse(x, y + waveOffset, 0.8, 0.8);
+            }
+        }
+    }
+</script>
+</body>
+
+</html>

@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>three.js ScrollTrigger滚动动效 www.bootstrapmb.com </title>
+  
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>three.js + ScrollTrigger</title>
+    <style>
+
+      :root {
+        --c0: white;
+        --c8: #494942;
+        --c9: #31312c;
+        --c10: #181816;
+        --c11: black;
+        --filter-01:url(#turbulence-effect);
+      }
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 3px;
+        background-color: var(--c11);
+      }
+      ::-webkit-scrollbar-thumb {
+        height: 50px;
+        background-color: var(--c0);
+        border-radius: 0px;
+      }
+      ::-webkit-scrollbar-button {
+        background-color: var(--c8);
+        display: none;
+      }
+      ::-webkit-scrollbar-track {
+        background-color: var(--c8);
+      }
+      ::-webkit-scrollbar-track-piece {
+        background-color: var(--c8);
+      }
+
+      ::-webkit-scrollbar-corner {
+        background-color: var(--c9);
+      }
+      ::-webkit-resizer {
+        background-color: var(--c9);
+      }
+      * {
+        box-sizing: border-box;
+        font-family: sans-serif;
+      }
+
+      html, body {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        user-select:none;
+      }
+
+      body {
+        margin: 0;
+        overflow-x: hidden;
+        background: #000;
+      }
+
+      a {
+        color:#fff;
+        text-decoration:none;
+        font-size : 12px;
+        font-weight:bold;
+      }
+
+      nav {
+        position:absolute;
+        z-index:6;
+        top:30rem;
+      }
+
+      menu{
+        position: fixed;
+        top: 1rem;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        z-index: 1000;      
+      }
+
+      menu ul{
+        list-style-type: none;
+        display: inline-flex;
+        justify-content: center;
+      }
+
+      menu ul li{
+        display: inline;
+        margin:0rem;
+        padding:.7rem 1rem;
+        border-radius: 0rem;
+        background : rgba(0,0,0,0.5);
+        height:3rem;
+        align-content:center;
+        border-top:rgba(0,0,0,0.6) solid 1px;
+        border-left:rgba(0,0,0,0.6) solid 1px;
+        border-bottom:rgba(0,0,0,0.3) solid 1px;
+        border-right:rgba(0,0,0,0.3) solid 1px;
+      }
+      menu ul li a{
+      }
+      #underline {
+        position: fixed;
+        top: 0;
+        height: 6px;
+        background: white;
+        border-bottom: solid 1px #f00;
+        width: 0;
+        transform-origin: left center;
+        pointer-events: none;
+        transition: width 0.3s ease, left 0.3s ease;
+      }
+      .scrollTarget {
+        position: absolute;
+        height: 600%; /* Adjusted to match the number of sections */
+        width: 100%;
+        top: 0;
+        z-index: 0;
+      }
+
+      .experience {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 2;
+      }
+
+      main {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        z-index: 3;
+      }
+
+      section.panel {
+        padding-top: 60px; 
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 100vh; /* Ensure each section takes the full viewport height */
+        border-bottom: solid 1px rgba(255,255,255,0.1);
+        z-index: 4;
+      }
+
+      .panel p {
+        font-size: 16px;
+        color: #fff;
+        padding: 10vw;
+      }
+
+    </style>
+  </head>
+  <body>
+    <nav>
+      <menu>
+        <ul>
+          <li><a href="#section-1">Section 1</a></li>
+          <li><a href="#section-2">Section 2</a></li>
+          <li><a href="#section-3">Section 3</a></li>
+          <li><a href="#section-4">Section 4</a></li>
+          <li><a href="#section-5">Section 5</a></li>
+          <li><a href="#section-6">Section 6</a></li>
+        </ul>
+      </menu>
+      <div id="underline"></div>
+    </nav>
+    <main>
+
+      <section class="panel" id="section-1"><p>Section 1</p></section>
+      <section class="panel" id="section-2"><p>Section 2</p></section>
+      <section class="panel" id="section-3"><p>Section 3</p></section>
+      <section class="panel" id="section-4"><p>Section 4</p></section>
+      <section class="panel" id="section-5"><p>Section 5</p></section>
+      <section class="panel" id="section-6"><p>Section 6</p></section>
+
+    </main>
+
+    <div class="scrollTarget"></div>
+    <canvas class="experience"></canvas>
+
+    <script type="module">
+      import * as THREE from 'https://cdn.skypack.dev/three@0.136.0/build/three.module.js';
+      import { OrbitControls } from 'https://cdn.skypack.dev/three@0.136.0/examples/jsm/controls/OrbitControls.js';
+      import { TextGeometry } from 'https://cdn.skypack.dev/three@0.136.0/examples/jsm/geometries/TextGeometry.js';
+      import { FontLoader } from 'https://cdn.skypack.dev/three@0.136.0/examples/jsm/loaders/FontLoader.js';
+      import { EffectComposer } from 'https://cdn.skypack.dev/three@0.136.0/examples/jsm/postprocessing/EffectComposer.js';
+      import { RenderPass } from 'https://cdn.skypack.dev/three@0.136.0/examples/jsm/postprocessing/RenderPass.js';
+      import { ShaderPass } from 'https://cdn.skypack.dev/three@0.136.0/examples/jsm/postprocessing/ShaderPass.js';
+      import { UnrealBloomPass } from 'https://cdn.skypack.dev/three@0.136.0/examples/jsm/postprocessing/UnrealBloomPass.js';
+      import { GlitchPass } from 'https://cdn.skypack.dev/three@0.136.0/examples/jsm/postprocessing/GlitchPass.js';
+
+      import { gsap } from 'https://cdn.skypack.dev/gsap';
+      import { ScrollTrigger } from 'https://cdn.skypack.dev/gsap/ScrollTrigger';
+      import { ScrollToPlugin } from 'https://cdn.skypack.dev/gsap/ScrollToPlugin';
+
+      gsap.registerPlugin(ScrollTrigger);
+      gsap.registerPlugin(ScrollToPlugin);
+
+      document.addEventListener("DOMContentLoaded", function() {
+        const menuLinks = document.querySelectorAll('menu ul li a');
+        const underline = document.getElementById('underline');
+
+        function updateUnderline(target) {
+          const linkRect = target.getBoundingClientRect();
+          const menuRect = target.closest('menu').getBoundingClientRect();
+
+          gsap.to(underline, {
+            duration: 0.3,
+            width: linkRect.width,
+            left: linkRect.left - menuRect.left,
+            ease: "power3.out"
+          });
+        }
+
+        menuLinks.forEach(link => {
+          link.addEventListener('click', function(e) {
+            e.preventDefault(); 
+            const targetId = this.getAttribute('href');
+            gsap.to(window, {
+              duration: 1, 
+              scrollTo: targetId,
+              onComplete: () => {
+                updateUnderline(this);
+              }
+            });
+          });
+        });
+
+        // Update underline on scroll
+        window.addEventListener('scroll', function() {
+          const fromTop = window.scrollY + 60; // 60 to account for the fixed nav height
+
+          menuLinks.forEach(link => {
+            const section = document.querySelector(link.getAttribute('href'));
+            if (
+              section.offsetTop <= fromTop &&
+              section.offsetTop + section.offsetHeight > fromTop
+            ) {
+              updateUnderline(link);
+            }
+          });
+        });
+
+        // Initialize underline position
+        if (menuLinks.length > 0) {
+          updateUnderline(menuLinks[0]);
+        }
+      });
+
+
+      const scene = new THREE.Scene();
+      scene.fog = new THREE.Fog(0x000000, -800, 800);
+
+      const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      const renderer = new THREE.WebGLRenderer({ 
+        antialias: true, 
+        canvas: document.querySelector('.experience'),
+        shadowMapEnabled: true,
+        shadowMapType: THREE.PCFSoftShadowMap
+      });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+
+      // eight points
+      
+      const points = [
+        new THREE.Vector3(0, 0, 0),
+        new THREE.Vector3(5, -5, 100),
+        new THREE.Vector3(20, 0, 200),
+        new THREE.Vector3(30, -10, 300),
+        new THREE.Vector3(0, 0, 400),
+        new THREE.Vector3(5, 5, 500),
+        new THREE.Vector3(-5, 5, 600),
+        new THREE.Vector3(5, -5, 700),
+      ];
+      const path = new THREE.CatmullRomCurve3(points);
+      const initialPoint = path.getPointAt(0);
+      const initialLookAtPoint = path.getPointAt(0.01);
+
+      camera.position.copy(initialPoint);
+      camera.lookAt(initialLookAtPoint);      
+
+      let composer, params = {
+        exposure: .3,
+        bloomStrength: .7,
+        bloomThreshold: 0,
+        bloomRadius: 0
+      };
+      const renderScene = new RenderPass(scene, camera);
+
+      // ---------------
+      // bloomPass, noisePass, scanLinePass 
+      // ---------------
+
+      const bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.5, 0.4, 0.85);
+      bloomPass.renderToScreen = true;
+      bloomPass.threshold = params.bloomThreshold;
+      bloomPass.strength = params.bloomStrength;
+      bloomPass.radius = params.bloomRadius;
+
+      composer = new EffectComposer(renderer);
+      composer.setSize(window.innerWidth, window.innerHeight);
+      composer.addPass(renderScene);
+      composer.addPass(bloomPass);
+
+      let noisePass;
+      const noiseShader = {
+        uniforms: {
+          'tDiffuse': { value: null },
+          'amount': { value: 0.05 }
+        },
+        vertexShader: `
+          varying vec2 vUv;
+          void main() {
+            vUv = uv;
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+          }
+        `,
+        fragmentShader: `
+          uniform sampler2D tDiffuse;
+          uniform float amount;
+          varying vec2 vUv;
+          float rand(vec2 co) {
+            return fract(sin(dot(co.xy, vec2(12.9898, 78.233))) * 43758.5453);
+          }
+          void main() {
+            vec4 color = texture2D(tDiffuse, vUv);
+            float noise = rand(gl_FragCoord.xy) * amount;
+            gl_FragColor = vec4(color.rgb + noise, color.a);
+          }
+        `
+      };
+
+      noisePass = new ShaderPass(noiseShader);
+      composer.addPass(noisePass);
+
+      const scanLinePass = new ShaderPass({
+        uniforms: {
+          "tDiffuse": { value: null },
+          "time": { value: 0.0 },
+          "lineHeight": { value: 4.0 },
+          "lineSpacing": { value: 2.0 },
+          "opacity": { value: 0.1 }
+        },
+        vertexShader: `
+          varying vec2 vUv;
+          void main() {
+            vUv = uv;
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+          }
+        `,
+        fragmentShader: `
+          uniform sampler2D tDiffuse;
+          uniform float time;
+          uniform float lineHeight;
+          uniform float lineSpacing;
+          uniform float opacity;
+          varying vec2 vUv;
+
+          void main() {
+            vec4 color = texture2D(tDiffuse, vUv);
+            float scanline = step(lineSpacing, mod(gl_FragCoord.y, lineHeight)) * opacity;
+            color.rgb += scanline;
+            gl_FragColor = color;
+          }
+        `,
+        blending: THREE.AdditiveBlending
+      });
+      composer.addPass(scanLinePass);
+
+      // ---------------
+      // shaderMaterial
+      // ---------------
+
+      const shaderMaterialStripes = new THREE.ShaderMaterial({
+        uniforms: {
+          color1: { value: new THREE.Color("black") },
+          color2: { value: new THREE.Color("red") },
+          color3: { value: new THREE.Color("white") },
+          color4: { value: new THREE.Color("black") },
+          color5: { value: new THREE.Color("red") },
+          opacity1: { value: 0 },
+          opacity2: { value: 1 },
+          opacity3: { value: 1 },
+          opacity4: { value: 0 },
+          opacity5: { value: 1 },
+          size1: { value: 0.20 },
+          size2: { value: 0.20 },
+          size3: { value: 0.20 },
+          size4: { value: 0.20 },
+          size5: { value: 0.20 },
+          fogColor: { value: scene.fog.color },
+          fogNear: { value: scene.fog.near },
+          fogFar: { value: scene.fog.far }
+        },
+        vertexShader: `
+    varying vec2 vUv;
+    varying float vDepth;
+
+    void main() {
+      vUv = uv;
+      vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+      vDepth = -mvPosition.z;
+      gl_Position = projectionMatrix * mvPosition;
+    }
+  `,
+        fragmentShader: `
+    uniform vec3 color1;
+    uniform vec3 color2;
+    uniform vec3 color3;
+    uniform vec3 color4;
+    uniform vec3 color5;
+
+    uniform float opacity1;
+    uniform float opacity2;
+    uniform float opacity3;
+    uniform float opacity4;
+    uniform float opacity5;
+
+    uniform float size1;
+    uniform float size2;
+    uniform float size3;
+    uniform float size4;
+    uniform float size5;
+
+    uniform vec3 fogColor;
+    uniform float fogNear;
+    uniform float fogFar;
+
+    varying vec2 vUv;
+    varying float vDepth;
+
+    void main() {
+      vec3 color = vec3(0.0);
+      float alpha = 1.0;
+
+      float diagonalPosition = mod(vUv.x + vUv.y, 1.0);
+
+      if (diagonalPosition < size1) {
+        color = color1;
+        alpha = opacity1;
+      } else if (diagonalPosition < size1 + size2) {
+        color = color2;
+        alpha = opacity2;
+      } else if (diagonalPosition < size1 + size2 + size3) {
+        color = color3;
+        alpha = opacity3;
+      } else if (diagonalPosition < size1 + size2 + size3 + size4) {
+        color = color4;
+        alpha = opacity4;
+      } else if (diagonalPosition < size1 + size2 + size3 + size4 + size5) {
+        color = color5;
+        alpha = opacity5;
+      }
+
+      gl_FragColor = vec4(color, alpha);
+
+      // Calcul du fog
+      float fogFactor = smoothstep(fogNear, fogFar, vDepth);
+      gl_FragColor.rgb = mix(gl_FragColor.rgb, fogColor, fogFactor);
+    }
+  `,
+        transparent: true,
+        side: THREE.DoubleSide,
+        wireframe: false
+      });
+
+      const tubeGeometry = new THREE.TubeGeometry(path, 200, 10, 20, false);
+      const tubeMaterial = new THREE.MeshStandardMaterial({
+        color: 0xffffff,
+        emissive: 0x444444,
+        roughness: 0.5,
+        metalness: 0.1, 
+        wireframe: true,
+        transparent: true,
+        opacity: .06,
+        side: THREE.DoubleSide,
+        clippingPlanes: [tubeGeometry],
+        clipShadows: true
+      });
+      const tubeMesh = new THREE.Mesh(tubeGeometry, tubeMaterial);
+      scene.add(tubeMesh);
+
+      const tubeGeometry2 = new THREE.TubeGeometry(path, 400, 10, 20, false);
+      const tubeMesh2 = new THREE.Mesh(tubeGeometry2, shaderMaterialStripes);
+      scene.add(tubeMesh2);
+
+      // ---------------
+      // Particles
+      // ---------------
+
+      const particlesGeometry = new THREE.BufferGeometry();
+      const particlesCount = 5000;
+      const positions = new Float32Array(particlesCount * 3);
+      for (let i = 0; i < particlesCount; i++) {
+        positions[i * 3] = Math.random() * 500 - 250;
+        positions[i * 3 + 1] = Math.random() * 500 - 250;
+        positions[i * 3 + 2] = Math.random() * 1200 - 600;
+      }
+      particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+      const particlesMaterial = new THREE.PointsMaterial({color: 0xffffff, size: 0.02, transparent: true, blending: THREE.AdditiveBlending});
+
+      const particles = new THREE.Points(particlesGeometry, particlesMaterial);
+      scene.add(particles);
+
+      // ---------------
+      // TextGeometry
+      // ---------------
+
+      function createTextOnPath(text, pathPosition, scale = 1, color = 0xffffff, size = 2, posX = 0, posY = 0, posZ = 0) {
+        const loader = new FontLoader();
+        loader.load('https://raw.githubusercontent.com/vainsan/assets/main/FFF_Galaxy_Regular.json', function (font) {
+          const textGeometry = new TextGeometry(text, {
+            font: font,
+            size: size,
+            height: 0.3,
+            curveSegments: 2,
+            bevelEnabled: true,
+            bevelThickness: 0.0,
+            bevelSize: 0.0,
+            bevelOffset: 0,
+            bevelSegments: 0
+          });
+          const textMaterial = new THREE.MeshBasicMaterial({ color: color, wireframe: false });
+          const textMesh = new THREE.Mesh(textGeometry, textMaterial);
+
+          // ---------------
+          // centered TextGeometry
+          // ---------------
+          textGeometry.computeBoundingBox();
+          const boundingBox = textGeometry.boundingBox;
+          const centerX = (boundingBox.max.x - boundingBox.min.x) / 2;
+          const centerY = (boundingBox.max.y - boundingBox.min.y) / 2;
+          const centerZ = (boundingBox.max.z - boundingBox.min.z) / 2;
+          textMesh.position.set(-centerX, -centerY, -centerZ);
+          const textPosition = path.getPointAt(pathPosition);
+          const lookAtPoint = path.getPointAt((pathPosition + 0.01) % 1);
+          const groupText = new THREE.Group();
+          groupText.scale.set(scale, scale, scale);
+
+          // ---------------
+          // offset Position
+          // ---------------
+          textPosition.x = textPosition.x + posX;
+          textPosition.y = textPosition.y + posY;
+          textPosition.z = textPosition.z + posZ;
+
+          groupText.position.copy(textPosition);
+          groupText.lookAt(camera.position);
+          groupText.add(textMesh);
+          scene.add(groupText);
+        });
+      }
+
+      createTextOnPath('Section 1', 0.05, 1, 0xffffff, 1, 0, 0, -1);
+      createTextOnPath('Section 2', 0.25, 1, 0xffffff, 1, 0, 0, -1);
+      createTextOnPath('Section 3', 0.45, 1, 0xffffff, 1, 0, 0, -1);
+      createTextOnPath('Section 4', 0.65, 1, 0xffffff, 1, 0, 0, -1);
+      createTextOnPath('Section 5', 0.85, 1, 0xffffff, 1, 0, 0, -1);
+      createTextOnPath('Section 6', 0.977, 1, 0xffffff, 1, 0, 0, 1);
+
+      // createTextOnPath(text, pathPosition, scale = 1, color = 0xffff00, size = 1, posX = 0, posY = 0, posZ = 0) 
+      function createYearOnPath(years, path) {
+        const step = 1 / years.length;
+        years.forEach((year, index) => {
+          createTextOnPath(year.toString(), index * step, .1, 0xff0000, 1,-4);
+        });
+      }
+
+      // ---------------
+      // TextGemometry
+      // ---------------
+
+      const years = Array.from({ length: 25 }, (_, i) => 2024 - i);
+      createYearOnPath(years, path);
+
+      // ---------------
+      // Lights
+      // ---------------
+      const ambientLight = new THREE.AmbientLight(0x404040);
+      scene.add(ambientLight);
+      const pointLight = new THREE.PointLight(0xffffff, 1, 100);
+      pointLight.position.set(50, 50, 50);
+      scene.add(pointLight);
+
+      const colors = ["#000000", "#222222", "#000000", "#000000", "#000000", "#000000"];
+
+      let scrollTriggerInstance;
+      function createAnimation() {
+        scrollTriggerInstance = gsap.timeline({
+          scrollTrigger: {
+            trigger: ".scrollTarget",
+            start: "top top",
+            end: "bottom bottom",
+            scrub: true,
+            markers: false,
+            snap: {
+              snapTo: "section", // snap to the start of the sections
+              duration: { min: 0.4, max: 0.8 }, // set the minimum and maximum duration of the snap animation
+              ease: "power1.inOut", // easing function
+            },
+            onUpdate: self => {
+              const progress = self.progress;
+              const newPath = path.getPointAt(progress);
+              camera.position.set(newPath.x, newPath.y, newPath.z);
+              const lookAtPoint = path.getPointAt((progress + 0.01) % 1);
+              camera.lookAt(lookAtPoint);
+
+              const colorIndex = Math.floor(progress * (colors.length - 1));
+              const colorProgress = (progress * (colors.length - 1)) % 1;
+              const startColor = new THREE.Color(colors[colorIndex]);
+              const endColor = new THREE.Color(colors[colorIndex + 1]);
+              const interpolatedColor = startColor.clone().lerp(endColor, colorProgress);
+              renderer.setClearColor(interpolatedColor);
+            }
+          }
+        });
+      }
+
+      window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        composer.setSize(window.innerWidth, window.innerHeight);
+      });
+
+      function animate() {
+        requestAnimationFrame(animate);
+        renderer.render(scene, camera);
+        composer.render();
+      }
+
+      createAnimation();
+      animate();
+      
+      let title3;
+      document.addEventListener('DOMContentLoaded', () => {
+
+        const title1 = document.createElement('h3');
+        title1.classList.add('title', '_1');
+        title1.innerHTML = 'three.js +<br />ScrollTrigger';
+
+        const title2 = document.createElement('h3');
+        title2.classList.add('title', '_2');
+        title2.textContent = '';
+
+        title3 = document.createElement('h3');
+        title3.classList.add('title', '_3');
+        title3.textContent = 'fullscreen on';
+
+        document.body.appendChild(title1);
+        document.body.appendChild(title2);
+        document.body.appendChild(title3);
+
+        const titles = document.querySelectorAll('.title');
+
+        titles.forEach(title => {
+          title.style.position = 'absolute';
+          title.style.fontFamily = 'arial';
+          title.style.color = '#fff';
+          title.style.fontSize = '.8rem';
+          title.style.zIndex = '6';
+          title.style.position = 'fixed';
+        });
+
+        title1.style.top = '20px';
+        title1.style.left = '30px';
+        title2.style.top = '20px';
+        title2.style.right = '30px';
+        title3.style.bottom = '20px';
+        title3.style.right = '30px';
+        title3.style.cursor = 'pointer';
+        title3.addEventListener('click', toggleFullscreen);
+      });
+
+      function toggleFullscreen() {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen();
+          title3.textContent = 'fullscreen off';
+
+        } else if (document.exitFullscreen) {
+          document.exitFullscreen();
+          title3.textContent = 'fullscreen on';
+        }
+      }
+    </script>
+  </body>
+</html>
+<!-- partial -->
+  <script  src="./script.js"></script>
+
+</body>
+</html>
