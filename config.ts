@@ -15,6 +15,10 @@ export const config = {
         {
             text: 'demo',
             path: '/demo'
+        },
+        {
+            text: '组件测试',
+            path: '/test'
         }
     ],
     projectData: [
@@ -26,13 +30,11 @@ export const config = {
             tags: [
                 {
                     text: 'Next.js',
-                    color: '',
-                    bgColor: ""
+                    color: 'stone',
                 },
                 {
                     text: 'TailwindCss',
-                    color: '',
-                    bgColor: ""
+                    color: 'blue',
                 }
             ],
             type: '个人'
@@ -45,8 +47,7 @@ export const config = {
             tags: [
                 {
                     text: 'VitePress',
-                    color: '',
-                    bgColor: ""
+                    color: 'green',
                 }
             ],
             type: '个人'
@@ -59,13 +60,11 @@ export const config = {
             tags: [
                 {
                     text: 'Nuxt.js',
-                    color: '',
-                    bgColor: ""
+                    color: 'green',
                 },
                 {
                     text: 'UnoCss',
-                    color: '',
-                    bgColor: ""
+                    color: 'violet',
                 }
             ],
             type: '个人'
@@ -78,13 +77,11 @@ export const config = {
             tags: [
                 {
                     text: 'React',
-                    color: '',
-                    bgColor: ""
+                    color: 'indigo',
                 },
                 {
                     text: 'Antd',
-                    color: '',
-                    bgColor: ""
+                    color: 'blue',
                 }
             ],
             type: '个人'
@@ -97,13 +94,11 @@ export const config = {
             tags: [
                 {
                     text: 'JavaScript',
-                    color: '',
-                    bgColor: ""
+                    color: 'yellow',
                 },
                 {
                     text: 'Canvas',
-                    color: '',
-                    bgColor: ""
+                    color: 'slate',
                 }
             ],
             type: '个人'
@@ -116,14 +111,12 @@ export const config = {
             tags: [
                 {
                     text: 'Vue3',
-                    color: '',
-                    bgColor: ""
+                    color: 'green',
                 },
                 {
 
                     text: '数字人',
-                    color: '',
-                    bgColor: ""
+                    color: 'pink',
                 }
             ],
             type: '个人'
@@ -136,13 +129,11 @@ export const config = {
             tags: [
                 {
                     text: 'Vue3',
-                    color: '',
-                    bgColor: ""
+                    color: 'green',
                 },
                 {
                     text: 'ElementPlus',
-                    color: '',
-                    bgColor: ""
+                    color: 'blue',
                 }
             ],
             type: '个人'
@@ -155,13 +146,11 @@ export const config = {
             tags: [
                 {
                     text: 'Vue3',
-                    color: '',
-                    bgColor: ""
+                    color: 'green',
                 },
                 {
                     text: 'Vant',
-                    color: '',
-                    bgColor: ""
+                    color: 'green',
                 }
             ],
             type: '个人'

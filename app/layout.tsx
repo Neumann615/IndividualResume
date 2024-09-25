@@ -24,7 +24,7 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en" className={'m-0 h-full p-0 font-sans '}>
+        <html lang="en" className={'m-0 h-full p-0 font-sans'}>
         <body
             className={`w-full  h-full`}
         >
