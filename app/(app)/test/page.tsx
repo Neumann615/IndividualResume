@@ -9,7 +9,7 @@ const tagList = tagColorList.map(color => {
     }
 })
 
-export default function test() {
+export default function Test() {
 
     return <div className={'w-3/4'}>
         <div>
