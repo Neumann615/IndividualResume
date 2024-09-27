@@ -1,4 +1,5 @@
 "use client"
+import Image from "next/image"
 import { useEffect } from "react"
 
 export function GlobalBg() {
@@ -34,13 +35,35 @@ export function GlobalBg() {
   }, [])
   return (
     <div
+      style={{ border: "1px solid red" }}
       className={
-        "z-[-1] absolute bottom-0 left-0 right-0 top-0 bg-no-repeat bg-right-top bg-contain"
+        "z-[-999] absolute bottom-0 left-0 right-0 top-0 w-full h-full select-none"
       }
-      style={{
-        backgroundImage: `url(/image/bg.jpeg)`,
-      }}
-    ></div>
+    >
+      <div className="w-full h-full relative overflow-hidden">
+        <Image
+          src="/image/bg.jpeg"
+          className="absolute -left-48 rotate-12"
+          width={500}
+          height={400}
+          alt={""}
+        ></Image>
+        <Image
+          src="/image/bg.jpeg"
+          className="absolute -bottom-48 rotate-12"
+          width={500}
+          height={400}
+          alt={""}
+        ></Image>
+        <Image
+          src="/image/bg.jpeg"
+          className="absolute -right-48 rotate-12"
+          width={500}
+          height={400}
+          alt={""}
+        ></Image>
+      </div>
+    </div>
   )
   // return <div
   //     className={`z-[-1] absolute bottom-0 left-0 right-0 top-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:16px_16px]`}
