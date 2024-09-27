@@ -1,37 +1,36 @@
 "use client"
-import p5 from "p5"
-import { useEffect, useRef } from "react"
+import { useEffect } from "react"
 
 export function GlobalBg() {
-  const bgContainer = useRef<HTMLDivElement>(null)
+  //const bgContainer = useRef<HTMLDivElement>(null)
   useEffect(() => {
-    if (!bgContainer?.current) return
-    const pointSpacing = 24
-    const waveAmplitude = 6
-    const waveFrequency = 200
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const sketch = (p: any) => {
-      const fillColor = p.color(71, 85, 105) // 初始填充颜色为紫色，可以根据需要修改
-      p.setup = () => {
-        const canvas = p.createCanvas(
-          (bgContainer?.current as HTMLDivElement).offsetWidth,
-          (bgContainer?.current as HTMLDivElement).offsetHeight
-        )
-        canvas.parent(bgContainer?.current)
-      }
-      p.draw = () => {
-        p.background(255)
-        p.fill(fillColor)
-        for (let x = 0; x < p.width; x += pointSpacing) {
-          for (let y = 0; y < p.height; y += pointSpacing) {
-            const waveOffset =
-              p.sin(x * waveFrequency + p.frameCount * 0.03) * waveAmplitude
-            p.ellipse(x, y + waveOffset, 0.5, 0.5)
-          }
-        }
-      }
-    }
-    new p5(sketch)
+    // if (!bgContainer?.current) return
+    // const pointSpacing = 24
+    // const waveAmplitude = 6
+    // const waveFrequency = 200
+    // // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // const sketch = (p: any) => {
+    //   const fillColor = p.color(71, 85, 105) // 初始填充颜色为紫色，可以根据需要修改
+    //   p.setup = () => {
+    //     const canvas = p.createCanvas(
+    //       (bgContainer?.current as HTMLDivElement).offsetWidth,
+    //       (bgContainer?.current as HTMLDivElement).offsetHeight
+    //     )
+    //     canvas.parent(bgContainer?.current)
+    //   }
+    //   p.draw = () => {
+    //     p.background(255)
+    //     p.fill(fillColor)
+    //     for (let x = 0; x < p.width; x += pointSpacing) {
+    //       for (let y = 0; y < p.height; y += pointSpacing) {
+    //         const waveOffset =
+    //           p.sin(x * waveFrequency + p.frameCount * 0.03) * waveAmplitude
+    //         p.ellipse(x, y + waveOffset, 0.5, 0.5)
+    //       }
+    //     }
+    //   }
+    // }
+    // new p5(sketch)
   }, [])
   return (
     <div
