@@ -1,0 +1,40 @@
+/*.wxx-container {*/
+/*    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1)), url('/image/blue-lock/凯撒/2.jpeg'), url('/image/blue-lock/凯撒/1.jpeg');*/
+/*    background-repeat: no-repeat;*/
+/*    background-position: top, top, bottom;*/
+/*}*/
+
+.wxx-container1 {
+    background-image: url('/image/blue-lock/凯撒/1.jpeg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: left;
+}
+
+/*.wxx-container {*/
+/*    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1)), url('/image/blue-lock/凯撒/2.jpeg'), url('/image/blue-lock/凯撒/1.jpeg');*/
+/*    background-repeat: no-repeat;*/
+/*    background-position: top, top, bottom;*/
+/*}*/
+
+.wxx-container2 {
+    background-image: url('/image/blue-lock/凯撒/2.jpeg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: top right;
+}
+
+.wxx-container3 {
+    background-image: url('/image/blue-lock/凯撒/3.jpeg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: top center;
+}
+
+.wxx-container4 {
+    background-image: url('/image/blue-lock/凯撒/4.jpeg');
+    background-size: 20%;
+    background-repeat: no-repeat;
+    background-position: bottom right;
+    transform: rotate(0deg);
+}

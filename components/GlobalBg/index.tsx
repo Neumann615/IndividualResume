@@ -1,6 +1,6 @@
 "use client"
-import Image from "next/image"
-import {useEffect} from "react"
+import React, {useEffect, useState} from "react"
+import "@/index.css"
 
 export function GlobalBg() {
     //const bgContainer = useRef<HTMLDivElement>(null)
@@ -39,7 +39,11 @@ export function GlobalBg() {
                 "z-[-999] absolute bottom-0 left-0 right-0 top-0 w-full h-full select-none"
             }
         >
-            <div className="w-full h-full relative overflow-hidden">
+            <div className="w-full h-full relative overflow-hidden ">
+                <div className={'absolute left-0 top-0  w-full h-full wxx-container1'}></div>
+                <div className={'absolute left-0 top-0  w-full h-full wxx-container2'}></div>
+                <div className={'absolute left-0 top-0  w-full h-full wxx-container3'}></div>
+                {/*<div className={'absolute left-0 top-0  w-full h-full wxx-container4'}></div>*/}
                 {/*<Image*/}
                 {/*    src="/image/blue-lock/凯撒/4.jpeg"*/}
                 {/*    className="absolute -left-0"*/}
@@ -47,20 +51,20 @@ export function GlobalBg() {
                 {/*    height={500}*/}
                 {/*    alt={""}*/}
                 {/*></Image>*/}
-                <Image
-                    src="/image/blue-lock/凯撒/2.jpeg"
-                    className="absolute left-0 top-0"
-                    width={700}
-                    height={500}
-                    alt={""}
-                ></Image>
-                <Image
-                    src="/image/blue-lock/凯撒/1.jpeg"
-                    className="absolute -right-12 rotate-[16deg]"
-                    width={800}
-                    height={400}
-                    alt={""}
-                ></Image>
+                {/*<Image*/}
+                {/*    src="/image/blue-lock/凯撒/2.jpeg"*/}
+                {/*    className="absolute left-0 top-0"*/}
+                {/*    width={700}*/}
+                {/*    height={500}*/}
+                {/*    alt={""}*/}
+                {/*></Image>*/}
+                {/*<Image*/}
+                {/*    src="/image/blue-lock/凯撒/1.jpeg"*/}
+                {/*    className="absolute -right-12 rotate-[16deg]"*/}
+                {/*    width={800}*/}
+                {/*    height={400}*/}
+                {/*    alt={""}*/}
+                {/*></Image>*/}
             </div>
         </div>
     )
@@ -75,3 +79,53 @@ export function GlobalBg() {
     //     }`}
     // />
 }
+
+
+const RandomRectangles = () => {
+    const [rectangles, setRectangles] = useState([]);
+
+    useEffect(() => {
+        const generateRectangles = () => {
+            const rects = [];
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = window.innerHeight;
+            let x = 0;
+            let y = 0;
+            while (y < viewportHeight) {
+                while (x < viewportWidth) {
+                    const width = Math.random() * 100 + 50; // 随机宽度在 50 - 150 之间
+                    const height = Math.random() * 100 + 50; // 随机高度在 50 - 150 之间
+                    rects.push({
+                        top: y,
+                        left: x,
+                        width,
+                        height,
+                    });
+                    x += width;
+                }
+                x = 0;
+                y += Math.max(...rects.map(rect => rect.height));
+            }
+            return rects;
+        };
+        setRectangles(generateRectangles());
+    }, []);
+
+    return (
+        <div style={{position: 'relative'}}>
+            {rectangles.map((rect, index) => (
+                <div
+                    key={index}
+                    style={{
+                        position: 'absolute',
+                        top: rect.top,
+                        left: rect.left,
+                        width: rect.width,
+                        height: rect.height,
+                        backgroundColor: `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`,
+                    }}
+                />
+            ))}
+        </div>
+    );
+};

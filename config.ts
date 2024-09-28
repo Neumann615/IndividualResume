@@ -2,7 +2,7 @@ export const config = {
     menuData: [
         {
             text: '博客',
-            path: "/blog"
+            path: "/posts"
         },
         {
             text: '项目',

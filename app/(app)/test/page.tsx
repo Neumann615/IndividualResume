@@ -1,6 +1,7 @@
 'use client'
 import {Tag, tagColorList} from '@/components/base/Tag'
 import {fakerZH_CN as faker} from '@faker-js/faker'
+import {Container} from '@/components/Container'
 
 const tagList = tagColorList.map(color => {
     return {
@@ -11,7 +12,7 @@ const tagList = tagColorList.map(color => {
 
 export default function Test() {
 
-    return <div className={'w-3/4'}>
+    return <Container className={'w-4/5'}>
         <div>
             <p className={'text-center text-3xl font-bold mb-8'}>标签(Tag)</p>
             <div className={'flex flex-wrap gap-4 mb-8'}>
@@ -30,6 +31,5 @@ export default function Test() {
                 })}
             </div>
         </div>
-
-    </div>
+    </Container>
 }

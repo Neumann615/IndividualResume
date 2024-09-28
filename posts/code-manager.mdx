@@ -1,0 +1,372 @@
+---
+title: multi-repo 和 mono-repo 代码管理方式了解（附实践源码）
+description: 这篇文章深入探讨了代码仓库管理的两种主要方式:multi-repo和 mono-repo。文章详细介绍了它们的概念、优缺点和适用场景。重点讲解了 mono-repo 的实践,包括使用 pnpm 和 Turborepo 两种工具来搭建 mono-repo 项目。文章通过实际操作步骤,演示了如何设置工作空间、管理依赖、配置构建任务等。对于想要了解和实践 mono-repo 的开发者来说,这是一篇全面且实用的指南,提供了从基础到进阶的 mono-repo 知识和技巧。
+tags: [multi-repo, mono-repo, 代码仓库管理]
+slug: code-manager-way
+author: luckySnail
+# cover:
+date: 2024-07-03
+---
+
+## 了解代码仓库管理方式
+
+### multi-repo
+
+全称：Multiple Repositories 多仓库
+Multi-repo是指每个项目或组件都有自己独立的版本控制仓库。这种方法的特点包括：
+
+- 每个项目有独立的代码库和版本控制历史
+- 项目之间保持分离，可以使用不同的框架、语言或技术
+- 更高的代码安全性，因为每个仓库都是独立的
+- 适合大型项目或有多个独立团队的组织
+
+我们业务项目基本上都是 multi-repo，但是multi-repo 项目如果要开发多个库，然后这些库互相有依赖关系，那么协同就很麻烦，就比如 React 项目，我们知道 React 项目下面有 React 核心库、React DOM、React Native ，这些模块之间有许多共享的代码和依赖。使用 mono-repo 可以让这些模块共享同一份代码库，从而避免代码重复，提高代码复用性。好了，我们来了解一下 mono-repo 吧！
+
+### mono-repo
+
+全称：Monolithic Repository 单一仓库
+Mono-repo是指在单个版本控制仓库中包含多个项目或组件。其特点包括：
+
+- 所有项目共享同一个代码库和版本控制历史
+- 促进代码共享和集中管理
+- 简化依赖管理
+- 适合中小型项目或需要紧密集成的相关项目
+
+上面也说了，类似 React 这样的项目，使用 mono-repo 就再适合不过了，但是 mono-repo 的缺点也是有的，
+
+- 性能：随着仓库内容的增大，在单个存储库中跨不同函数和上下文组合代码可能会减慢代码拉取操作的速度。这对新加入的开发人员或 CI/CD（全称是“Continuous Integration/Continuous Deployment”，意思是“持续集成/持续部署”。） 系统可能造成影响。
+- 权限控制困难：对于大型组织，可能难以在单一仓库中实现细粒度的访问控制，可能导致安全风险
+- 技术栈限制： mono-repo 可能鼓励使用统一的技术栈，这可能限制了在特定项目中使用最适合的技术
+
+所以，选择使用 mono-repo 作为仓库管理方式需要考虑清楚。我们接下来就实践一下吧！
+
+## mono-repo 实践
+
+可以按照简单和复杂的维度来进行技术选择
+简单的工具：
+
+- npm workspace：[https://docs.npmjs.com/cli/v7/using-npm/workspaces](https://docs.npmjs.com/cli/v7/using-npm/workspaces)
+- yarn workspace：[https://classic.yarnpkg.com/lang/en/docs/workspaces/](https://classic.yarnpkg.com/lang/en/docs/workspaces/)
+- pnpm workspace：[https://pnpm.io/workspaces](https://pnpm.io/workspaces)（推荐阅读：[https://juejin.cn/post/7127295203177676837](https://juejin.cn/post/7127295203177676837)）
+
+专业的工具：
+
+- lerna：[https://www.lernajs.cn/](https://www.lernajs.cn/)，最初由Sebastian McKenzie创建,他也是Babel的作者。目前Lerna由开源社区维护,主要贡献者来自各大科技公司
+- Nx：[https://nx.dev/](https://nx.dev/)，Nx Nx由Nrwl公司开发和维护。Nrwl是一家专注于提供企业级开发工具和服务的公司,由前Google员工Victor Savkin和Jeff Cross创立
+- Turborepo：[https://turborepo.org/](https://turborepo.org/)，最初由Jared Palmer个人开发。2021年,Vercel公司收购了Turborepo,现在由Vercel团队继续开发和维护。Vercel是一家专注于前端开发和部署的公司,以Next.js框架而闻名
+- Bazel：[https://bazel.build/about/intro?hl=zh-cn](https://bazel.build/about/intro?hl=zh-cn)，由Google开发和维护。它源于Google内部使用的构建工具Blaze,后来被开源并改名为Bazel。Google的大规模mono-repo实践为Bazel的设计提供了丰富的经验
+- Rush：[https://rushjs.io/](https://rushjs.io/)，Microsoft开发的可扩展mono-repo管理器
+
+### 简单工具：pnpm 使用
+
+对于个人的小项目来说，我们使用 pnpm 就可以了，我们来快速上手一下
+1）创建文件夹
+
+```bash
+mkdir mono-repo-pnpm
+cd ./mono-repo-pnpm
+```
+
+2）pnpm 初始化
+
+```bash
+pnpm init
+```
+
+3. 初始化pnpm-workspace.yaml + 配置全局代码规范
+   参考：[https://pnpm.io/zh/pnpm-workspace_yaml](https://pnpm.io/zh/pnpm-workspace_yaml)，新建 pnpm-workspace.yaml
+
+```javascript
+packages: -'packages/*';
+```
+
+指定了 /package 下的所有文件，就是我们 mono-repo 的所有子项目。我们 mono-repo 的初始配置就完成了
+
+现在，我们安装一下 全局的代码格式化依赖。这样每个子包都使用统一的代码格式化规范，对了，我们的编辑器需要先有 ESLint 和 Prettier 插件，并在设置中配置一下，
+![image.png](https://blog-1304565468.cos.ap-shanghai.myqcloud.com/work/1719751228447-c40b7f35-5863-48fa-a241-1ef951fdd8f7.png)
+然后，我们安装：
+
+```bash
+pnpm i eslint -D -w
+```
+
+-w 是 --workspace-root 的别名，即安装到工程根目录，作为所有子模块的公共依赖。也可以用 -r 递归给每个子模块安装，或者用 --filter `<package_name>` 给指定子模块安装。然后初始化，我们终端执行：`npx eslint --init`(我们需要选择一些配置，选择好后会生成一个 eslint.config.mjs 文件给我们），然而，可能你会遇到这样的提示：
+
+```bash
+ WARN  Issues with peer dependencies found
+.
+├─┬ @typescript-eslint/parser 7.14.1
+│ └── ✕ unmet peer eslint@^8.56.0: found 9.6.0
+└─┬ typescript-eslint 7.14.1
+  ├── ✕ unmet peer eslint@^8.56.0: found 9.6.0
+  └─┬ @typescript-eslint/eslint-plugin 7.14.1
+    ├── ✕ unmet peer eslint@^8.56.0: found 9.6.0
+    ├─┬ @typescript-eslint/utils 7.14.1
+    │ └── ✕ unmet peer eslint@^8.56.0: found 9.6.0
+    └─┬ @typescript-eslint/type-utils 7.14.1
+      └── ✕ unmet peer eslint@^8.56.0: found 9.6.0
+```
+
+我们可以执行：`pnpm install eslint@^8.56.0 -D`,这是提示 eslint 版本与某些依赖项的预期版本不匹配，我们安装匹配的就好
+我们继续安装 ts 的 eslint 插件 和 prettier 的依赖
+
+```bash
+pnpm i -D -w @typescript-eslint/eslint-plugin prettier eslint-config-prettier eslint-plugin-prettier
+```
+
+然后，我们来创建对应的配置文件，先创建 `.prettierrc.json`
+
+```json
+{
+	"printWidth": 80,
+	"tabWidth": 2,
+	"useTabs": true,
+	"singleQuote": true,
+	"semi": true,
+	"trailingComma": "none",
+	"bracketSpacing": true
+}
+```
+
+再创建 `tsconfig.json`
+
+```json
+{
+	"include": ["./packages/**/*"],
+	"compileOnSave": true,
+	"compilerOptions": {
+		"target": "ESNext",
+		"useDefineForClassFields": true,
+		"module": "ESNext",
+		"lib": ["ESNext", "DOM"],
+		"moduleResolution": "Node",
+		"strict": true,
+		"sourceMap": true,
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"esModuleInterop": true,
+		"noEmit": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noImplicitReturns": false,
+		"skipLibCheck": true,
+		"baseUrl": "./packages"
+	}
+}
+```
+
+再修改 `eslint.config.mjs`
+
+```javascript
+import pluginJs from '@eslint/js';
+import globals from 'globals';
+import tseslint from 'typescript-eslint';
+
+export default [
+	{ files: ['**/*.{js,mjs,cjs,ts}'] },
+	{ languageOptions: { globals: globals.browser } },
+	pluginJs.configs.recommended,
+	...tseslint.configs.recommended,
+	{
+		env: {
+			browser: true,
+			es2021: true,
+			node: true
+		},
+		extends: [
+			'eslint:recommended',
+			'plugin:@typescript-eslint/recommended',
+			'prettier',
+			'plugin:prettier/recommended'
+		],
+		parser: '@typescript-eslint/parser',
+		parserOptions: {
+			ecmaVersion: 'latest',
+			sourceType: 'module'
+		},
+		plugins: ['@typescript-eslint', 'prettier'],
+		rules: {
+			'prettier/prettier': 'error',
+			'no-case-declarations': 'off',
+			'no-constant-condition': 'off',
+			'@typescript-eslint/ban-ts-comment': 'off'
+		}
+	}
+];
+```
+
+现在，我们的项目就完成了代码自动进行报错提示，和保存格式化，我们可以在 packeage.json 中添加脚本
+
+```json
+	"lint": "eslint --ext .ts,.js,.jsx,.tsx --fix --quiet ./packages"
+```
+
+4）创建子项目
+我们创建两个子项目并初始化
+
+```bash
+mkdir -p packages/common packages/app
+```
+
+初始化，每个子项目
+
+```bash
+cd packages/common
+pnpm init
+cd ../app
+pnpm init
+cd ../..
+```
+
+修改子项目 package.json 文件，这代表了下载子包的安装命名，也代表这些包都归属于 mono-repo-pnpm 包
+
+```json
+// packages/app
+{
+  "name": "@mono-repo-pnpm/app",
+  ...
+}
+// packages/common
+{
+  "name": "@mono-repo-pnpm/common",
+  ...
+}
+```
+
+5）在common包中添加一些共享代码
+在 packages/common/index.js 中添加:
+
+```javascript
+console.log('执行了了common.js');
+exports.sayHello = (name) => `Hello, ${name}!`;
+```
+
+6）在app包中使用common包
+首先,在 app 包的 package.json 中添加对 common 包的依赖:
+
+```json
+{
+	"dependencies": {
+		"@mono-repo-pnpm/common": "workspace:*"
+	}
+}
+```
+
+然后在 packages/app/index.js 中使用 common 包:
+
+```javascript
+const { sayHello } = require('@mono-repo-pnpm/common');
+console.log(sayHello('Monorepo'));
+```
+
+我们刚好可以测试一下在全局配置的代码规范也是生效的， 保存的时候如果写的不符合规范，我们就会看到提示，保存也会自动格式化
+7）终端执行：`node ./packages/app`，我们可以看到：
+![image.png](https://blog-1304565468.cos.ap-shanghai.myqcloud.com/work/1719756062777-d1066c93-59f9-441a-89ce-0a4292d678eb.png)
+这就是通过 mono-repo 的本地依赖能力，如果不使用 mono-repo，我们可能需要通过 npm link 来解决，非常麻烦
+8）我们在根目录安装一个依赖 lodash，然后在子目录可通过 `"lodash": "*",` 来使用 根目录的 lodash。实现根目标管理所有的包9)我们可以在每个 `package.json` 中，添加一个脚本，例如：`"dev": "node index.js"`。然后根目录执行 `pnpm -r dev`。这样我们就可以在一行代码执行所有的子项目的 dev 脚本。
+通过这个基础的 mono-repo 的项目，我们使用了 mono-repo 的如下能力
+
+1. 工作空间管理: 通过pnpm-workspace.yaml轻松管理多个包。
+2. 依赖共享: 子项目可以共享依赖,节省磁盘空间。
+3. 本地依赖: 可以使用workspace:\*语法引用本地包。
+4. 统一版本控制: 可以在根目录管理所有包的版本。
+5. 并行执行: 可以并行运行多个包的脚本。
+
+### 专业工具：turborepo 使用
+
+> 操作系统： macos，如果你是使用 windows ，可能有些地方不一样
+
+我们全局安装 turbo，执行命令 `pnpm install turbo --global`，如果你也报错：
+![image.png](https://blog-1304565468.cos.ap-shanghai.myqcloud.com/work/1717916747666-00652358-c37c-4816-b396-5c336ddf79ff.png)
+不要着急，跟我我一步步修复这个报错，这是因为没有正确配置了你的环境变量和全局目录
+1）我们先按照提示执行：pnpm setup ，然后再次执行全局安装 turbo命令，如果这时候依然提示上面的报错，或者类似这样的报错
+![image.png](https://blog-1304565468.cos.ap-shanghai.myqcloud.com/work/1717917291588-5e432a15-352a-4f0e-9a7f-b4b94ec9ff91.png) 2)我们执行：`nano ~/.bashrc` 或者 `nano ~/.zshrc`,添加以下内容：
+
+```bash
+export PNPM_HOME="$HOME/.pnpm"
+export PATH="$PNPM_HOME:$PATH"
+```
+
+我们先保存(** ctrl + o 组合键**)，系统会询问你是否要保存所做的更改，我们**按下回车键**，然后我们关闭( **ctrl + x 组合键**)文件，然后重新加载配置文件：
+
+```bash
+source ~/.bashrc  # 或者 source ~/.zshrc
+```
+
+我们来验证一下是否配置成功：
+
+```bash
+# 确认环境变量已正确设置
+echo $PNPM_HOME
+echo $PATH
+# 确保 PNPM_HOME 目录存在，并且包含 pnpm 安装的全局包：
+ls $PNPM_HOME
+```
+
+如果这俩都没有报错，那么就说明配置成功，我们重新执行全局安装 turbo 命令，这里应该能够安装成功
+![image.png](https://blog-1304565468.cos.ap-shanghai.myqcloud.com/work/1717917677812-1bca684a-23ce-489d-bd5a-070dc38b659b.png)
+3）全局安装成功 turbo 后，我们执行 `npx create-turbo@latest`,
+![image.png](https://blog-1304565468.cos.ap-shanghai.myqcloud.com/work/1719761825547-28374898-dc71-4e1c-8adc-c866c177229a.png) 4)项目目录了解。turpo-repo 来解决复杂 mono-repo 项目，打包性能问题
+
+```bash
+my-turborepo/
+├── apps/
+│   ├── docs/
+│   └── web/
+├── packages/
+│   ├── eslint-config-custom/
+│   ├── tsconfig/
+│   └── ui/
+├── turbo.json
+└── package.json
+```
+
+5）turbo.json 了解，turbo.json 是 Turbo 的核心配置文件。它定义了任务之间的依赖关系，
+
+```json
+{
+	"$schema": "https://turbo.build/schema.json",
+	"tasks": {
+		"build": {
+			"dependsOn": ["^build"],
+			"inputs": ["$TURBO_DEFAULT$", ".env*"],
+			"outputs": [".next/**", "!.next/cache/**"]
+		},
+		"lint": {
+			"dependsOn": ["^lint"]
+		},
+		"dev": {
+			"cache": false,
+			"persistent": true
+		}
+	}
+}
+```
+
+1. "$schema": 指定了 JSON schema 的位置，用于验证配置文件的正确性。
+2. "tasks": 定义了项目中的各种任务。
+3. "build" 任务:
+   - "dependsOn": ["^build"]: 表示此任务依赖于所有工作空间中的 build 任务。^ 符号表示只考虑当前包的依赖项。
+   - "inputs": ["$TURBO_DEFAULT$", ".env*"]: 指定任务的输入文件。$TURBO_DEFAULT$ 是 Turbo 的默认输入集，.env\* 表示所有 .env 文件。
+   - "outputs": [".next/**", "!.next/cache/**"]: 指定任务的输出。这里包含了 .next 目录下的所有文件，但排除了 .next/cache 目录。
+4. "lint" 任务:
+   - "dependsOn": ["^lint"]: 表示此任务依赖于所有依赖项的 lint 任务。
+5. "dev" 任务:
+   - "cache": false: 禁用此任务的缓存。
+   - "persistent": true: 表示这是一个长期运行的任务，如开发服务器。
+
+6）在根目录下,您可以运行：`turbo run build`，这将会根据 turbo.json 的配置，并行构建所有的应用和包。我们可以构建两次，会发现第二次构建时间比第一次短，这就是 Turbo的增量构建和缓存机制大大提高了构建速度。
+最后，我们看一下Turbo的主要能力:
+
+1. 增量构建: Turbo只重新构建发生变化的部分
+2. 远程缓存: 可以在团队成员之间共享构建缓存
+3. 并行执行: Turbo可以并行运行任务,提高效率
+4. 任务编排: 通过turbo.json定义任务之间的依赖关系
+5. 单一配置: 使用一个turbo.json文件管理整个monorepo
+
+## 参考：
+
+1. vivo 技术：[基于 Lerna 管理 packages 的 Monorepo 项目最佳实践](https://segmentfault.com/a/1190000020047120)
+2. turbo，新兴的 monorepo 管理方案：[https://segmentfault.com/a/1190000042282389](https://segmentfault.com/a/1190000042282389)
+3. 我的 pnpm 实现 mono-repo 代码：[https://github.com/chaseFunny/pnpm-monorepo](https://github.com/chaseFunny/pnpm-monorepo)
+4. 我的 turbo 示例代码：[https://github.com/chaseFunny/turbo-monorepo](https://github.com/chaseFunny/turbo-monorepo)

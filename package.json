@@ -12,10 +12,17 @@
   },
   "dependencies": {
     "@faker-js/faker": "^9.0.2",
+    "@radix-ui/react-separator": "^1.1.0",
+    "clsx": "^2.1.1",
+    "contentlayer": "^0.3.4",
+    "dayjs": "^1.11.13",
     "next": "14.2.13",
+    "next-contentlayer": "^0.3.4",
     "p5": "^1.10.0",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "tailwind-merge": "^2.5.2",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@types/node": "^20",
