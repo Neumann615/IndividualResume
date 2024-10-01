@@ -1,7 +1,10 @@
+import React from 'react'
+
 interface TagProps {
     color?: TagColor
     size?: TagSize
     text?: string
+    children?: React.ReactNode
 }
 
 export type TagSize = 'small' | 'medium' | 'large'
@@ -35,7 +38,7 @@ export function Tag(props: TagProps) {
 
     return <div className={`${colorSet[color]} ${sizeSet[size]} flex  items-center justify-center pt-`}
     >
-        {text}
+        {text ? text : props.children}
     </div>
 }
 

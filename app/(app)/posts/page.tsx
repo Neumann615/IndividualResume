@@ -1,4 +1,3 @@
-'use client'
 import {Separator} from '@/components/base/Separator'
 import {cn} from '@/utils'
 import {allPosts, type Post} from '@/.contentlayer/generated'
@@ -42,8 +41,6 @@ export default function Posts() {
             return new Date(b.date).getTime() - new Date(a.date).getTime();
         })
         .slice(0, allPosts.length - 1);
-
-    console.log(sortedPosts)
     return <Container>
         <div className={"text-center mb-12"}>
             <div className={"text-4xl font-bold tracking-wide mb-4"}>博客</div>

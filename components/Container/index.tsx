@@ -8,7 +8,7 @@ const Container = React.forwardRef<HTMLDivElement, ContainerProps>(
         return (
             <div
                 ref={ref}
-                className={cn('relative py-8 px-4 sm:px-8 lg:px-12 w-auto h-auto', className)}
+                className={cn('relative py-8 px-4 sm:px-8 lg:mt-16', className)}
                 {...props}
             >
                 <div

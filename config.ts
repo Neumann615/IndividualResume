@@ -8,14 +8,14 @@ export const config = {
             text: '项目',
             path: "/project"
         },
-        {
-            text: '学习笔记',
-            path: '/note'
-        },
-        {
-            text: 'demo',
-            path: '/demo'
-        },
+        // {
+        //     text: '学习笔记',
+        //     path: '/note'
+        // },
+        // {
+        //     text: 'demo',
+        //     path: '/demo'
+        // },
         {
             text: '组件测试',
             path: '/test'
@@ -115,8 +115,12 @@ export const config = {
                 },
                 {
 
-                    text: '数字人',
-                    color: 'pink',
+                    text: '讯飞数字人',
+                    color: 'rose',
+                },
+                {
+                    text:'百度地图',
+                    color:'fuchsia'
                 }
             ],
             type: '个人'
