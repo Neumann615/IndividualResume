@@ -7,7 +7,7 @@ interface TagProps {
     children?: React.ReactNode
 }
 
-export type TagSize = 'small' | 'medium' | 'large'
+export type TagSize = 'mini' | 'small' | 'medium' | 'large'
 export type TagColor =
     'slate'
     | 'gray'
@@ -34,9 +34,9 @@ export type TagColor =
 
 
 export function Tag(props: TagProps) {
-    const {color = 'purple', size = 'medium', text} = props
+    const {color = 'gray', size = 'medium', text} = props
 
-    return <div className={`${colorSet[color]} ${sizeSet[size]} flex  items-center justify-center pt-`}
+    return <div className={`${colorSet[color]} ${sizeSet[size]} flex  items-center justify-center`}
     >
         {text ? text : props.children}
     </div>
@@ -45,9 +45,10 @@ export function Tag(props: TagProps) {
 const sizeSet: {
     [key in TagSize]: string
 } = {
-    'small': 'pl-2 pr-2 pt-0.5 pb-0.5 text-sm rounded-sm',
-    'medium': 'pl-3 pr-3 pt-1 pb-1 text-base rounded',
-    'large': 'pl-4 pr-4 pt-2 pb-2 text-lg rounded-md',
+    'mini': 'px-1.5 text-xss rounded',
+    'small': 'px-1.5 text-xs rounded',
+    'medium': 'pl-2 pr-2 text-base rounded',
+    'large': 'pl-3 pr-3 text-lg rounded-md',
 }
 
 const colorSet: {

@@ -5,7 +5,7 @@ import {config} from "@/config"
 import Image from "next/image"
 
 export default function Project() {
-    return (<Container>
+    return (<Container className={'lg:w-[1024px] w-auto '}>
             <div className={"text-center mb-12"}>
                 <div className={"text-4xl font-bold tracking-wide mb-4"}>项目</div>
                 <div className={"text-2xl text-slate-400 tracking-widest mb-4"}>
@@ -41,7 +41,7 @@ export default function Project() {
                             >
                                 {item.description}
                             </div>
-                            <div className={"flex gap-4 mb-6"}>
+                            <div className={"flex gap-4 mb-6 flex-wrap"}>
                                 {item.tags.map((item, index) => {
                                     return (
                                         <Tag

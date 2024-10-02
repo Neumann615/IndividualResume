@@ -41,7 +41,7 @@ export default function Posts() {
             return new Date(b.date).getTime() - new Date(a.date).getTime();
         })
         .slice(0, allPosts.length - 1);
-    return <Container>
+    return <Container className={'lg:w-[720px] w-auto'}>
         <div className={"text-center mb-12"}>
             <div className={"text-4xl font-bold tracking-wide mb-4"}>博客</div>
             <div className={"text-2xl text-slate-400 tracking-widest mb-4"}>

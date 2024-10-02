@@ -8,11 +8,11 @@ const Container = React.forwardRef<HTMLDivElement, ContainerProps>(
         return (
             <div
                 ref={ref}
-                className={cn('relative py-8 px-4 sm:px-8 lg:mt-16', className)}
+                className={cn('relative  px-4 m-auto', className)}
                 {...props}
             >
-                <div
-                    className={'absolute w-full h-full bg-white dark:bg-black -z-20 left-0 top-0 opacity-40 rounded-2xl'}></div>
+                {/*<div*/}
+                {/*    className={'absolute w-full h-full bg-white dark:bg-black -z-20 left-0 top-0 opacity-40 rounded-2xl'}></div>*/}
                 {children}
             </div>
         );

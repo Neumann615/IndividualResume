@@ -24,9 +24,14 @@ const tagList = tagColorList.map(color => {
 
 export default function Test() {
 
-    return <Container className={'w-4/5'}>
+    return <Container className={'lg:w-[880px] w-auto'}>
         <div>
             <p className={'text-center text-3xl font-bold mb-8'}>标签(Tag)</p>
+            <div className={'flex flex-wrap gap-4 mb-8'}>
+                {tagList.map((item) => {
+                    return <Tag key={item.color} color={item.color} text={item.text} size={'mini'}></Tag>
+                })}
+            </div>
             <div className={'flex flex-wrap gap-4 mb-8'}>
                 {tagList.map((item) => {
                     return <Tag key={item.color} color={item.color} text={item.text} size={'small'}></Tag>

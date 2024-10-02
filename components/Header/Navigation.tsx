@@ -14,10 +14,10 @@ export function Navigation() {
                         key={item.path}
                         onClick={() => router.push(item.path)}
                         className={
-                            "cursor-pointer text-zinc-200 tracking-wide " +
+                            "cursor-pointer text-base tracking-wide " +
                             (pathname === item.path
-                                ? "text-xl  font-bold"
-                                : "text-lg font-medium")
+                                ? "font-bold text-zinc-800"
+                                : "font-medium text-zinc-500")
                         }
                     >
                         {item.text}

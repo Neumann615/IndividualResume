@@ -25,16 +25,16 @@
 }
 
 .wxx-container3 {
-    background-image: url('/image/blue-lock/凯撒/3.jpeg');
+    background-image: url('/image/blue-lock/sae/1.webp');
     background-size: contain;
     background-repeat: no-repeat;
-    background-position: top center;
+    background-position: top left;
 }
 
 .wxx-container4 {
-    background-image: url('/image/blue-lock/凯撒/4.jpeg');
-    background-size: 20%;
+    background-image: url('/image/blue-lock/nagi/2.webp');
+    background-size: contain;
     background-repeat: no-repeat;
-    background-position: bottom right;
+    background-position: top right;
     transform: rotate(0deg);
 }

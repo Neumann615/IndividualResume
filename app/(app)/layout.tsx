@@ -10,7 +10,7 @@ export default function RootLayout({
     children: React.ReactNode
 }>) {
     return (
-        <div className={"w-full h-full flex flex-col overflow-hidden"}>
+        <div className={"w-full h-full overflow-y-auto"}>
             <GlobalBg/>
             {/* 内容区域盒子 */}
             <Header></Header>
