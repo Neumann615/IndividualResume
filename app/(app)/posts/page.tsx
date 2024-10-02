@@ -1,9 +1,9 @@
-import {Separator} from '@/components/base/Separator'
+import {Separator} from '@/components/Separator'
 import {cn} from '@/utils'
 import {allPosts, type Post} from '@/.contentlayer/generated'
 import dayjs from 'dayjs'
 import Link from 'next/link'
-import {Tag} from '@/components/base/Tag'
+import {Tag} from '@/components/Tag'
 import {Container} from '@/components/Container'
 
 
@@ -41,14 +41,14 @@ export default function Posts() {
             return new Date(b.date).getTime() - new Date(a.date).getTime();
         })
         .slice(0, allPosts.length - 1);
-    return <Container className={'lg:w-[720px] w-auto'}>
-        <div className={"text-center mb-12"}>
+    return <Container className={'lg:w-[660px] w-auto'}>
+        <div className={"text-center mb-12 animate-in slide-in-from-left duration-1000"}>
             <div className={"text-4xl font-bold tracking-wide mb-4"}>博客</div>
             <div className={"text-2xl text-slate-400 tracking-widest mb-4"}>
                 🐛兴趣爱好和技术分享🔧
             </div>
         </div>
-        <div>
+        <div className={'animate-in fade-in zoom-in duration-1000'}>
             <div className={cn('grid grid-cols-1 gap-4', false ? 'grid-cols-2' : '')}>
                 {sortedPosts.map((post, idx) => (
                     <PostCard showCover={false} key={idx} post={post}/>

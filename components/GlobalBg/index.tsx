@@ -42,7 +42,7 @@ export function GlobalBg() {
             <div className="w-full h-full relative overflow-hidden">
                 {/*<div className={'absolute left-0 top-0  w-full h-full wxx-container1'}></div>*/}
                 <div className={'absolute left-0 top-0  w-full h-full wxx-container3'}></div>
-                <div className={'absolute left-0 top-0  w-full h-full wxx-container4'}></div>
+                {/*<div className={'absolute left-0 top-0  w-full h-full wxx-container4'}></div>*/}
 
                 {/*<Image*/}
                 {/*    src="/image/blue-lock/凯撒/4.jpeg"*/}

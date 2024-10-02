@@ -36,25 +36,25 @@ const config = {
             }
         },
         // typography: (theme: any) => ({
-        //         invert: {
-        //             css: {
-        //                 '--tw-prose-body': 'var(--tw-prose-invert-body)',
-        //                 '--tw-prose-headings': 'var(--tw-prose-invert-headings)',
-        //                 '--tw-prose-links': 'var(--tw-prose-invert-links)',
-        //                 '--tw-prose-links-hover': 'var(--tw-prose-invert-links-hover)',
-        //                 '--tw-prose-underline': 'var(--tw-prose-invert-underline)',
-        //                 '--tw-prose-underline-hover':
-        //                     'var(--tw-prose-invert-underline-hover)',
-        //                 '--tw-prose-bold': 'var(--tw-prose-invert-bold)',
-        //                 '--tw-prose-counters': 'var(--tw-prose-invert-counters)',
-        //                 '--tw-prose-bullets': 'var(--tw-prose-invert-bullets)',
-        //                 '--tw-prose-hr': 'var(--tw-prose-invert-hr)',
-        //                 '--tw-prose-quote-borders': 'var(--tw-prose-invert-quote-borders)',
-        //                 '--tw-prose-captions': 'var(--tw-prose-invert-captions)',
-        //                 '--tw-prose-th-borders': 'var(--tw-prose-invert-th-borders)',
-        //                 '--tw-prose-td-borders': 'var(--tw-prose-invert-td-borders)'
-        //             }
-        //         },
+        //     invert: {
+        //         css: {
+        //             '--tw-prose-body': 'var(--tw-prose-invert-body)',
+        //             '--tw-prose-headings': 'var(--tw-prose-invert-headings)',
+        //             '--tw-prose-links': 'var(--tw-prose-invert-links)',
+        //             '--tw-prose-links-hover': 'var(--tw-prose-invert-links-hover)',
+        //             '--tw-prose-underline': 'var(--tw-prose-invert-underline)',
+        //             '--tw-prose-underline-hover':
+        //                 'var(--tw-prose-invert-underline-hover)',
+        //             '--tw-prose-bold': 'var(--tw-prose-invert-bold)',
+        //             '--tw-prose-counters': 'var(--tw-prose-invert-counters)',
+        //             '--tw-prose-bullets': 'var(--tw-prose-invert-bullets)',
+        //             '--tw-prose-hr': 'var(--tw-prose-invert-hr)',
+        //             '--tw-prose-quote-borders': 'var(--tw-prose-invert-quote-borders)',
+        //             '--tw-prose-captions': 'var(--tw-prose-invert-captions)',
+        //             '--tw-prose-th-borders': 'var(--tw-prose-invert-th-borders)',
+        //             '--tw-prose-td-borders': 'var(--tw-prose-invert-td-borders)'
+        //         }
+        //     },
         //     DEFAULT: {
         //         css: {
         //             '--tw-prose-links': theme('colors.purple.500'),

@@ -4,6 +4,10 @@ import {withContentlayer} from 'next-contentlayer';
 
 const nextConfig = {
     compress: true,
+    images: {
+        domains: ['avatars.githubusercontent.com', 'cloudflare-ipfs.com'],
+        formats: ['image/webp']
+    }
 }
 
 export default withContentlayer(nextConfig)

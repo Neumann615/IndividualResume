@@ -1,5 +1,5 @@
 import {Container} from '@/components/Container'
-import {Tag} from "@/components/base/Tag"
+import {Tag} from "@/components/Tag"
 
 
 const data1 = [

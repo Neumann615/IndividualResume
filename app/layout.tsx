@@ -1,4 +1,5 @@
 import type {Metadata} from "next"
+import {ThemeProvider} from 'next-themes'
 import "./globals.css"
 
 // const geistSans = localFont({
@@ -25,7 +26,16 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en" className={"m-0 h-full p-0 font-sans"}>
-        <body className={`w-full  h-full`}>{children}</body>
+        <body className={`w-full  h-full`}>
+        <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+        >
+            {children}
+        </ThemeProvider>
+        </body>
         </html>
     )
 }

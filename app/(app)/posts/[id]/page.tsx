@@ -1,6 +1,6 @@
 import {Container} from '@/components/Container'
-import {Tag} from "@/components/base/Tag"
-import {TagIcon} from "@/components/base/Icon"
+import {Tag} from "@/components/Tag"
+import {TagIcon} from "@/components/Icon"
 import {cn} from '@/utils'
 import {allPosts, type Post} from 'contentlayer/generated'
 import dayjs from 'dayjs'
@@ -62,14 +62,14 @@ const Page = ({params}: { params: TypeParams }) => {
         }
     };
     return (
-        <Container>
-            <div className="w-full md:flex md:justify-between xl:relative gap-1">
-                <aside className="hidden w-[160px] shrink-0 lg:block">
+        <Container className={'w-auto'}>
+            <div className="w-full flex gap-0 m-auto justify-center">
+                <aside className="hidden w-[160px] shrink-0 lg:block animate-in slide-in-from-left fade-in duration-1000">
                     <div className="sticky top-2 pt-16">
                         <Tocbot/>
                     </div>
                 </aside>
-                <div className="max-w-4xl md:flex-1 md:shrink-0 ">
+                <div className="animate-in slide-in-from-right fade-in duration-1000">
                     {/*<Link*/}
                     {/*    href="/posts"*/}
                     {/*    className={cn(*/}
@@ -83,10 +83,10 @@ const Page = ({params}: { params: TypeParams }) => {
                     {/*</Link>*/}
                     <article
                         data-postid={post._id}
-                        className="rich-text-viewer prose px-4"
+                        className="rich-text-viewer prose px-4 m-auto"
                     >
                         <div className="mb-8 text-center">
-                            <h1 className="text-3xl font-bold mb-2">{post.title}</h1>
+                            <h1 className="text-3xl  font-bold mb-2">{post.title}</h1>
                             <div
                                 className="flex justify-center mb-2 rounded-md items-center space-x-4 text-sm text-gray-600">
                                 {dayjs(post.date).format('YYYY-MM-DD')}

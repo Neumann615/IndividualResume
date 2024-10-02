@@ -1,6 +1,7 @@
 "use client"
 import {config} from "@/config"
 import {usePathname, useRouter} from "next/navigation"
+import {ThemeSwitch} from '@/components/Header/ThemeSwitch'
 
 export function Navigation() {
     const router = useRouter()
@@ -16,7 +17,7 @@ export function Navigation() {
                         className={
                             "cursor-pointer text-base tracking-wide " +
                             (pathname === item.path
-                                ? "font-bold text-zinc-800"
+                                ? "font-bold text-zinc-500"
                                 : "font-medium text-zinc-500")
                         }
                     >
@@ -24,6 +25,7 @@ export function Navigation() {
                     </div>
                 )
             })}
+            <ThemeSwitch></ThemeSwitch>
         </div>
     )
 }

@@ -1,8 +1,8 @@
 'use client';
-import {Tag, tagColorList} from '@/components/base/Tag'
+import {Tag, tagColorList} from '@/components/Tag'
 import {fakerZH_CN as faker} from '@faker-js/faker'
 import {Container} from '@/components/Container'
-import * as a from "@/components/base/Icon"
+import * as a from "@/components/Icon"
 
 const iconComponentList: any[] = []
 for (const key in a) {
@@ -53,7 +53,7 @@ export default function Test() {
             <div className={'flex flex-wrap gap-4 mb-8'}>
                 {iconComponentList.map((Icon, index) => {
                     return <div key={index}
-                                className={'w-12 h-12 cursor-pointer bg-zinc-50 hover:bg-zinc-200 grid place-content-center rounded-md'}>
+                                className={'w-12 h-12 cursor-pointer bg-zinc-50 hover:bg-zinc-200 dark:bg-zinc-700 dark:hover:bg-zinc-800 grid place-content-center rounded-md'}>
                         <Icon className={'text-2xl'}></Icon>
                     </div>
                 })}

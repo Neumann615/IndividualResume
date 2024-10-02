@@ -1,3 +1,5 @@
+
+import {faker} from '@faker-js/faker'
 export const config = {
     menuData: [
         {
@@ -16,10 +18,10 @@ export const config = {
         //     text: 'demo',
         //     path: '/demo'
         // },
-        {
-            text: '组件测试',
-            path: '/test'
-        }
+        // {
+        //     text: '组件测试',
+        //     path: '/test'
+        // }
     ],
     projectData: [
         {
