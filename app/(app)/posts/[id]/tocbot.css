@@ -26,11 +26,11 @@
 }
 
 .is-active-li > .toc-link {
-    color: #a855f7; /* zinc-900 */
+    color: rgb(96 165 250);; /* dark:blue-400 */
 }
 
 .dark .is-active-li > .toc-link {
-    color: #af88fa; /* dark:zinc-200 */
+    color: rgb(37 99 235); /* blue-600 */
 }
 
 .toc-list .toc-list {

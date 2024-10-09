@@ -1,5 +1,3 @@
-
-import {faker} from '@faker-js/faker'
 export const config = {
     menuData: [
         {
@@ -121,8 +119,8 @@ export const config = {
                     color: 'rose',
                 },
                 {
-                    text:'百度地图',
-                    color:'fuchsia'
+                    text: '百度地图',
+                    color: 'fuchsia'
                 }
             ],
             type: '个人'

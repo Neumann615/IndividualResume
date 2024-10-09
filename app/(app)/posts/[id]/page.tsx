@@ -63,8 +63,9 @@ const Page = ({params}: { params: TypeParams }) => {
     };
     return (
         <Container className={'w-auto'}>
-            <div className="w-full flex gap-0 m-auto justify-center">
-                <aside className="hidden w-[160px] shrink-0 lg:block animate-in slide-in-from-left fade-in duration-1000">
+            <div className="w-full flex gap-4 m-auto justify-center">
+                <aside
+                    className="hidden w-[200px] shrink-0 lg:block animate-in slide-in-from-left fade-in duration-1000">
                     <div className="sticky top-2 pt-16">
                         <Tocbot/>
                     </div>
@@ -119,7 +120,7 @@ const Page = ({params}: { params: TypeParams }) => {
                             <Link
                                 href={`/posts/${prevPost.slug}`}
                                 className={cn(
-                                    'inline-flex items-center justify-center rounded-md  px-4 py-2 text-sm  font-medium text-violet-500  dark:text-violet-300 shadow-sm hover:bg-violet-200 dark:hover:bg-violet-500 focus:outline-none focus:ring-2 focus:ring-violet-600 focus:ring-offset-2'
+                                    'inline-flex items-center justify-center rounded-md  px-4 py-2 text-sm  font-medium text-blue-500  dark:text-blue-300 shadow-sm hover:bg-blue-200 dark:hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2'
                                 )}
                             >
                                 {computeTitle(prevPost)}
@@ -135,7 +136,7 @@ const Page = ({params}: { params: TypeParams }) => {
                             <Link
                                 href={`/posts/${nextPost.slug}`}
                                 className={cn(
-                                    'inline-flex items-center justify-center rounded-md  px-4 py-2 text-sm font-medium text-violet-500 dark:text-violet-300 shadow-sm hover:bg-violet-200  dark:hover:bg-violet-500  focus:outline-none focus:ring-2 focus:ring-violet-600 focus:ring-offset-2'
+                                    'inline-flex items-center justify-center rounded-md  px-4 py-2 text-sm font-medium text-blue-500 dark:text-blue-300 shadow-sm hover:bg-blue-200  dark:hover:bg-blue-500  focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2'
                                 )}
                             >
                                 {computeTitle(nextPost)}

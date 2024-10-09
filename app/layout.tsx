@@ -1,6 +1,8 @@
-import type {Metadata} from "next"
+'use client'
 import {ThemeProvider} from 'next-themes'
+import {GlobalLoading} from '@/components/GlobalLoading'
 import "./globals.css"
+import {useState} from 'react'
 
 // const geistSans = localFont({
 //     src: "./fonts/GeistVF.woff",
@@ -14,27 +16,27 @@ import "./globals.css"
 // });
 
 
-export const metadata: Metadata = {
-    title: "噗噗的博客",
-    description: "记录学习笔记、技术文档以及一些生活日常",
-}
-
 export default function RootLayout({
                                        children,
                                    }: Readonly<{
     children: React.ReactNode
 }>) {
+    const [isLoading, setIsLoading] = useState(true)
     return (
         <html lang="en" className={"m-0 h-full p-0 font-sans"}>
         <body className={`w-full  h-full`}>
-        <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-        >
-            {children}
-        </ThemeProvider>
+        {isLoading ? <GlobalLoading loadingFinished={() => {
+                setIsLoading(false)
+            }}/> :
+            <ThemeProvider
+                attribute="class"
+                defaultTheme="system"
+                enableSystem
+                disableTransitionOnChange
+            >
+                {children}
+            </ThemeProvider>}
+
         </body>
         </html>
     )

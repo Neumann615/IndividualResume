@@ -1,6 +1,6 @@
 import {Container} from '@/components/Container'
 import {Tag} from "@/components/Tag"
-
+import {Metadata} from 'next'
 
 const data1 = [
     {
@@ -8,7 +8,6 @@ const data1 = [
     },
     {
         text: "React",
-
     },
     {
         text: "Nuxt.js",
@@ -23,21 +22,27 @@ const data2 = [
         text: "音乐",
     },
     {
-        text: "游戏",
+        text: "英雄联盟",
     },
     {
         text: "健身",
     }
 ]
 
+export const metadata: Metadata = {
+    title: "Z",
+    description: "记录学习笔记、技术文档以及一些生活日常",
+}
 export default function Home() {
-    return <Container className={'lg:w-[65ch] w-auto'}>
-        <div className={'mb-6 animate-in slide-in-from-left duration-1000'}>
-            <h1 className={'text-3xl font-bold'}>Pouf Pouf</h1>
+    return <Container className={'lg:w-[65ch] w-auto animate-in fade-in duration-1000'}>
+        <div className={'mb-6  slide-in-from-left duration-1000'}>
+            <h1 className={'text-3xl font-bold'}>Z</h1>
         </div>
-        <article className={'animate-in fade-in zoom-in duration-1000'}>
+        <article className={'fade-in zoom-in duration-1000'}>
             <div className={'m-auto prose'}>
-                <p className={'mb-6 text-zinc-500'}>你好，我是噗噗，一名前端开发工程师</p>
+                <p className={'mb-6 text-zinc-500'}>你好，我是
+                    <span className={'font-bold mx-1 text-blue-400 dark:text-blue-600'}>Z</span>
+                    ，一名前端开发工程师</p>
                 <div className={'flex items-center mb-3'}>
                     <div className={'mr-4 text-zinc-500 text-base'}>技术</div>
                     <div className={'flex justify-center items-center gap-4'}>

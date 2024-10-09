@@ -5,6 +5,11 @@ import {config} from "@/config"
 import Image from "next/image"
 
 
+// export const metadata: Metadata = {
+//     title: "w",
+//     description: "记录学习笔记、技术文档以及一些生活日常",
+// }
+
 export default function Project() {
     return (<Container className={'lg:w-[1024px] w-auto '}>
             <div className={"text-center mb-12 animate-in slide-in-from-left duration-1000"}>
@@ -20,7 +25,7 @@ export default function Project() {
                         <div
                             key={index}
                             onClick={() => {
-                                //window.open(item.url)
+                                window.open(item.url)
                             }}
                             className={"w-92 p-4 cursor-pointer bg-zinc-100 dark:bg-zinc-900 rounded-xl"}
                         >

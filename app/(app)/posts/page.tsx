@@ -5,19 +5,25 @@ import dayjs from 'dayjs'
 import Link from 'next/link'
 import {Tag} from '@/components/Tag'
 import {Container} from '@/components/Container'
+import {Metadata} from 'next'
 
 
-function PostCard({post, showCover}: { post: Post; showCover?: boolean }) {
+export const metadata: Metadata = {
+    title: "Z | 博客",
+    description: "记录学习笔记、技术文档以及一些生活日常",
+}
+
+function PostCard({post}: { post: Post; showCover?: boolean }) {
     return (
         <Link
             href={`/posts/${post.slug}`}
             className={cn(
-                'text-violet-500 relative dark:text-violet-400',
-                showCover ? 'hover:drop-shadow-2xl' : ' hover:text-violet-700'
+                'relative duration-500',
+                'hover:shadow-blue-200/50 dark:hover:shadow-blue-950/50  hover:shadow-lg hover:duration-500'
             )}
         >
             <div className="px-4 py-4 rounded-sm border-b-[1px] border-violet-200 sm:border-none  cursor-pointer">
-                <h2 className="mb-1 text-xl font-medium">
+                <h2 className="mb-1 text-xl  text-black relative dark:text-white font-medium">
                     <span>{post.title}</span>
                 </h2>
                 <div className="hidden sm:flex flex-wrap mt-2 justify-start  items-center space-x-4 text-sm">
@@ -26,7 +32,7 @@ function PostCard({post, showCover}: { post: Post; showCover?: boolean }) {
                     </time>
                     <Separator orientation="vertical" className="h-5"/>
                     {post.tags.map((tag) => (
-                        <Tag size={'small'} key={tag} text={tag} color={'purple'}></Tag>
+                        <Tag size={'small'} key={tag} text={tag}></Tag>
                     ))}
                 </div>
             </div>
@@ -40,7 +46,6 @@ export default function Posts() {
             // 按照日期降序排序
             return new Date(b.date).getTime() - new Date(a.date).getTime();
         })
-        .slice(0, allPosts.length - 1);
     return <Container className={'lg:w-[660px] w-auto'}>
         <div className={"text-center mb-12 animate-in slide-in-from-left duration-1000"}>
             <div className={"text-4xl font-bold tracking-wide mb-4"}>博客</div>
