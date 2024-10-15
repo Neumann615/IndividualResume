@@ -1,12 +1,16 @@
+import {BookText, FlaskConical, Sparkles} from 'lucide-react'
+
 export const config = {
     menuData: [
         {
             text: '博客',
-            path: "/posts"
+            path: "/posts",
+            icon: BookText
         },
         {
             text: '项目',
-            path: "/project"
+            path: "/project",
+            icon: Sparkles
         },
         // {
         //     text: '学习笔记',
@@ -16,10 +20,11 @@ export const config = {
         //     text: 'demo',
         //     path: '/demo'
         // },
-        // {
-        //     text: '组件测试',
-        //     path: '/test'
-        // }
+        {
+            text: '组件测试',
+            path: '/test',
+            icon: FlaskConical
+        }
     ],
     projectData: [
         {

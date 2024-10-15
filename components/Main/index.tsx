@@ -3,7 +3,7 @@ export function Main({
                      }: Readonly<{
     children: React.ReactNode;
 }>) {
-    return <main className="px-7 py-10 of-x-hidden">
+    return <main className="px-7 py-8 of-x-hidden max-md:px-6">
         {children}
     </main>
 }

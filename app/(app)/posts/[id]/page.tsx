@@ -102,7 +102,7 @@ const Page = ({params}: { params: TypeParams }) => {
                             {/* 描述渲染 */}
                             {post.description && (
                                 <div className="bg-zinc-100 dark:bg-zinc-800 relative p-4 rounded-xl w-full">
-                                    <TagIcon className="absolute right-2 bottom-2 text-2xl"/>
+                                    <TagIcon className="absolute right-1.5 bottom-1 text-lg text-zinc-500"/>
                                     <p className="text-gray-700 m-0 dark:text-gray-300 text-left text-sm tracking-wider">
                                         {post.description}
                                     </p>

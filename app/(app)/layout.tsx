@@ -10,7 +10,7 @@ export default function RootLayout({
     children: React.ReactNode
 }>) {
     return (
-        <div className={"w-full h-full overflow-y-auto overflow-x-hidden"}>
+        <div className={"w-full h-full overflow-y-auto overflow-x-hidden scroll scroll-smooth focus:scroll-auto"}>
             <GlobalBg/>
             {/* 内容区域盒子 */}
             <Header></Header>
