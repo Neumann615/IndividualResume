@@ -1,13 +1,13 @@
-import {Container} from '@/components/Container'
-import {Tag} from "@/components/Tag"
-import {TagIcon} from "@/components/Icon"
-import {cn} from '@/utils'
-import {allPosts, type Post} from 'contentlayer/generated'
+import { Container } from '@/components/Container'
+import { TagIcon } from "@/components/Icon"
+import { Tag } from "@/components/Tag"
+import { cn } from '@/utils'
+import { allPosts, type Post } from 'contentlayer/generated'
 import dayjs from 'dayjs'
-import {useMDXComponent} from 'next-contentlayer/hooks'
+import { useMDXComponent } from 'next-contentlayer/hooks'
 import Link from 'next/link'
-import {notFound} from 'next/navigation'
-import {Tocbot} from './Tocbot'
+import { notFound } from 'next/navigation'
+import { Tocbot } from './Tocbot'
 
 // const variantStyles = {
 //     primary:
@@ -87,7 +87,7 @@ const Page = ({params}: { params: TypeParams }) => {
                         className="rich-text-viewer prose px-4 m-auto"
                     >
                         <div className="mb-8 text-center">
-                            <h1 className="text-3xl  font-bold mb-2">{post.title}</h1>
+                            <h1 className="text-3xl font-bold mb-2">{post.title}</h1>
                             <div
                                 className="flex justify-center mb-2 rounded-md items-center space-x-4 text-sm text-gray-600">
                                 {dayjs(post.date).format('YYYY-MM-DD')}
