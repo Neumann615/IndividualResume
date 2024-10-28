@@ -2,5 +2,7 @@
 
 import posts__favoriteLyricsMdx from './posts__favorite-lyrics.mdx.json' assert { type: 'json' }
 import posts__goodWayOfWorkingMdx from './posts__good-way-of-working.mdx.json' assert { type: 'json' }
+import posts__facePainAndFrustrationMdx from './posts__face-pain-and-frustration.mdx.json' assert { type: 'json' }
+import posts__frontendLearnLine_2Mdx from './posts__frontend-learn-line-2.mdx.json' assert { type: 'json' }
 
-export const allPosts = [posts__favoriteLyricsMdx, posts__goodWayOfWorkingMdx]
+export const allPosts = [posts__favoriteLyricsMdx, posts__goodWayOfWorkingMdx, posts__facePainAndFrustrationMdx, posts__frontendLearnLine_2Mdx]

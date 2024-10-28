@@ -25,11 +25,11 @@ export const config = {
     //     text: 'demo',
     //     path: '/demo'
     // },
-    {
-      text: "组件测试",
-      path: "/test",
-      icon: FlaskConical,
-    },
+    // {
+    //   text: "组件测试",
+    //   path: "/test",
+    //   icon: FlaskConical,
+    // },
   ],
   projectData: [
     {

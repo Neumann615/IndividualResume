@@ -1,13 +1,13 @@
-import { Container } from '@/components/Container'
-import { TagIcon } from "@/components/Icon"
-import { Tag } from "@/components/Tag"
-import { cn } from '@/utils'
-import { allPosts, type Post } from 'contentlayer/generated'
+import {Container} from '@/components/Container'
+import {TagIcon} from "@/components/Icon"
+import {Tag} from "@/components/Tag"
+import {cn} from '@/utils'
+import {allPosts, type Post} from 'contentlayer/generated'
 import dayjs from 'dayjs'
-import { useMDXComponent } from 'next-contentlayer/hooks'
+import {useMDXComponent} from 'next-contentlayer/hooks'
 import Link from 'next/link'
-import { notFound } from 'next/navigation'
-import { Tocbot } from './Tocbot'
+import {notFound} from 'next/navigation'
+import {Tocbot} from './Tocbot'
 
 // const variantStyles = {
 //     primary:
@@ -62,7 +62,7 @@ const Page = ({params}: { params: TypeParams }) => {
         }
     };
     return (
-        <Container className={'w-auto'}>
+        <Container className={'lg:max-w-[1024px] w-auto'}>
             <div className="w-full flex gap-4 m-auto justify-center">
                 <aside
                     className="hidden w-[200px] shrink-0 lg:block animate-in slide-in-from-left fade-in duration-1000">
