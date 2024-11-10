@@ -1,10 +1,11 @@
-import { type ClassValue, clsx } from "clsx"
-import { twMerge } from "tailwind-merge"
+import {type ClassValue, clsx} from "clsx"
+import {twMerge} from "tailwind-merge"
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+    return twMerge(clsx(inputs))
 }
 
-export function openUrl(url: string) {
-  window.open(url)
+export function openUrl(url: string | undefined) {
+    if (!url?.length) return
+    window.open(url)
 }

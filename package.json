@@ -32,7 +32,8 @@
     "remark-gfm": "^4.0.0",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7",
-    "tocbot": "^4.30.0"
+    "tocbot": "^4.30.0",
+    "uuid": "^11.0.2"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.7",

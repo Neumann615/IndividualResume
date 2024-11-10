@@ -65,7 +65,7 @@ const Page = ({params}: { params: TypeParams }) => {
         <Container className={'lg:max-w-[1024px] w-auto'}>
             <div className="w-full flex gap-4 m-auto justify-center">
                 <aside
-                    className="hidden w-[200px] shrink-0 lg:block animate-in slide-in-from-left fade-in duration-1000">
+                    className="hidden w-[180px] shrink-0 lg:block animate-in slide-in-from-left fade-in duration-1000">
                     <div className="sticky top-2 pt-16">
                         <Tocbot/>
                     </div>
@@ -94,7 +94,7 @@ const Page = ({params}: { params: TypeParams }) => {
                             </div>
                             <div className="flex w-full justify-center gap-2 mb-4">
                                 {post.tags.map((tag) => (
-                                    <Tag key={tag} color={'sky'} size={'small'}>
+                                    <Tag key={tag} color={'blue'} size={'medium'}>
                                         {tag}
                                     </Tag>
                                 ))}

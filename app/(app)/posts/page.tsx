@@ -32,7 +32,7 @@ function PostCard({post}: { post: Post; showCover?: boolean }) {
                     </time>
                     <Separator orientation="vertical" className="h-5"/>
                     {post.tags.map((tag) => (
-                        <Tag size={'small'} key={tag} text={tag}></Tag>
+                        <Tag key={tag} text={tag}></Tag>
                     ))}
                 </div>
             </div>

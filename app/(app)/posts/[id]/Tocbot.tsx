@@ -13,7 +13,7 @@ const listVariants: Variants = {
         transition: {
             when: 'beforeChildren',
             staggerChildren: 0.08,
-            delay: 0.255,
+            delay: 0.5,
             type: 'spring',
             stiffness: 150,
             damping: 20
@@ -41,13 +41,14 @@ function Tocbot() {
 
         const handleScroll = () => {
             const activeLink = document.querySelector('.toc-link.is-active-link');
+
             if (activeLink) {
                 // setHighlightedHeadingId(
-                // 	activeLink.getAttribute('href')?.slice(1) || null
+                //     activeLink.getAttribute('href')?.slice(1) || null
                 // );
             }
         };
-
+        tocbot.refresh()
         window.addEventListener('scroll', handleScroll);
 
         return () => {
