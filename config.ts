@@ -288,7 +288,7 @@ export const config = {
             icon: "/logo.jpg",
             title: "学习笔记",
             description: "基于vitePress构建的文档站点，记录一些知识点和常见问题",
-            url: "https://xiaonuo.love",
+            url: "https://docs.xiaonuo.love",
             tags: [
                 {
                     text: "VitePress",

@@ -37,6 +37,8 @@ export const generateMetadata = ({params}: { params: TypeParams }) => {
     };
 };
 
+const mdxComponents = {}
+
 const Page = ({params}: { params: TypeParams }) => {
     let postIndex = 0;
     const post = allPosts.find((post) => {
@@ -110,7 +112,7 @@ const Page = ({params}: { params: TypeParams }) => {
                             )}
                         </div>
                         <div className="js-toc-content">
-                            <MDXContent/>
+                            <MDXContent components={mdxComponents}/>
                         </div>
                     </article>
                     {/* 上一个，下一个功能 */}
