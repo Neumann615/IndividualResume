@@ -211,7 +211,7 @@ const linkSet: {
     'html2canvas': {
         name: 'html2canvas',
         desc: 'html2canvas 是一个 HTML 渲染器,允许你直接在用户浏览器截取页面或部分网页的“屏幕截屏”',
-        logo: '',
+        logo: '/image/logo/html2canvas.png',
         home: 'https://www.html2canvas.cn/',
         contribute: 'https://github.com/niklasvh/html2canvas'
     }, '': {
@@ -298,7 +298,7 @@ export const config = {
             type: "个人",
         },
         {
-            icon: "/logo.jpg",
+            icon: "/image/logo/uoffer.ico",
             title: "有录网模仿网站",
             description: "基于Nuxt.js构建的模仿有录网开发的网站，主要是学习用",
             url: "https://uoffer.xiaonuo.love",
@@ -349,7 +349,7 @@ export const config = {
             type: "个人",
         },
         {
-            icon: "/logo.jpg",
+            icon: "/image/logo/jyxz.svg",
             title: "就业小知",
             description: "一款集成语音识别、百度地图、数字人的求职机系统",
             url: "https://xiaozhi.beikesmart.com",
@@ -370,7 +370,7 @@ export const config = {
             type: "个人",
         },
         {
-            icon: "/logo.jpg",
+            icon: "/image/logo/uniplat-admin.png",
             title: "uniplat-admin",
             description: "公司用的通用后台管理网站，支持多入口模块管理",
             url: "https://xiaozhi-uniplat.beikesmart.com",
@@ -387,7 +387,7 @@ export const config = {
             type: "个人",
         },
         {
-            icon: "/logo.jpg",
+            icon: "/image/logo/anxin.png",
             title: "即时通讯H5",
             description: "基于Vue3、Vant构建的一个即时通讯聊天软件",
             url: "http://dd.dreamdt.cn:8899/mobile/index.html#/login",
