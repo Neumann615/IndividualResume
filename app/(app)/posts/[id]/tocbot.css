@@ -10,6 +10,14 @@
     transition: colors 0.3s;
 }
 
+.toc-list-item a:hover{
+    color: rgb(96 165 250);
+}
+
+.dark .toc-list-item a:hover{
+    color: rgb(37 99 235); 
+}
+
 .toc-link {
     display: block;
     width: 100%;
@@ -26,7 +34,7 @@
 }
 
 .is-active-li > .toc-link {
-    color: rgb(96 165 250);; /* dark:blue-400 */
+    color: rgb(96 165 250); /* dark:blue-400 */
 }
 
 .dark .is-active-li > .toc-link {

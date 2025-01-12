@@ -1,31 +1,28 @@
 'use client';
-import './tocbot.css'
-import {motion, Variants} from 'framer-motion'
-import {useEffect} from 'react'
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-expect-error
-import tocbot from 'tocbot'
+import { Variants, motion, useScroll } from 'framer-motion';
+import { useEffect } from 'react';
+import { destroy, init } from 'tocbot';
+import './tocbot.css';
 
 const listVariants: Variants = {
-    hidden: {opacity: 0},
+    hidden: { opacity: 0 },
     visible: {
         opacity: 1,
         transition: {
             when: 'beforeChildren',
             staggerChildren: 0.08,
-            delay: 0.3,
+            delay: 0.255,
             type: 'spring',
             stiffness: 150,
             damping: 20
         }
     }
-}
+};
 
 function Tocbot() {
-
-
+    const { scrollY } = useScroll()
     useEffect(() => {
-        tocbot.init({
+        init({
             tocSelector: '.js-toc',
             contentSelector: '.js-toc-content',
             headingSelector: 'h1, h2, h3, h4, h5, h6',
@@ -35,15 +32,17 @@ function Tocbot() {
             listItemClass: 'toc-list-item',
             collapseDepth: 6,
             scrollSmooth: true,
-            scrollSmoothDuration: 420,
+            scrollSmoothDuration: 300,
             scrollSmoothOffset: -10,
-            hasInnerContainers: true,
+            hasInnerContainers: true
         });
-        return () => {
-            tocbot.destroy();
 
-        };
-    }, []);
+
+        return () => {
+            destroy()
+
+        }
+    }, [scrollY])
 
     return (
         <div className="toc-container">
@@ -58,4 +57,5 @@ function Tocbot() {
     );
 }
 
-export {Tocbot}
+export { Tocbot };
+
