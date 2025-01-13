@@ -5,25 +5,28 @@ import { useEffect } from "react"
 import "./tocbot.css"
 
 function Tocbot() {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  let outline: any = null
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    outline = new Outline({
-      articleElement: "#article",
-      asideElement: "#aside",
-      scrollElement: "#z-container",
-      position: "sticky",
-    })
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    let outline: any = null
+    useEffect(() => {
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        outline = new Outline({
+            articleElement: "#article",
+            asideElement: "#aside",
+            scrollElement: "#z-container",
+            position: "sticky",
+            hasToolbar: false,
+            title:false,
+            selector:'h1,h2,h3,h4'
+        })
 
-    return () => {
-      if (outline) {
-        outline.destroy()
-      }
-    }
-  }, [])
+        return () => {
+            if (outline) {
+                outline.destroy()
+            }
+        }
+    }, [])
 
-  return <div id="aside"></div>
+    return <div id="aside"></div>
 }
 
 export { Tocbot }

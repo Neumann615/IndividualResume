@@ -67,7 +67,7 @@ const Page = ({ params }: { params: TypeParams }) => {
     <Container className={"lg:max-w-[1024px] w-auto"}>
       <div className="w-full flex gap-4 m-auto justify-center">
         <aside className="hidden w-[180px] shrink-0 lg:block animate-in slide-in-from-left fade-in duration-1000">
-          <div className="sticky top-2 pt-16">
+          <div className="sticky top-2 pt-20">
             <Tocbot />
           </div>
         </aside>
