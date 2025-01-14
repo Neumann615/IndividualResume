@@ -1,4 +1,6 @@
 "use client"
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
 import Outline from "@yaohaixiao/outline.js/outline"
 import "@yaohaixiao/outline.js/outline.css"
 import { useEffect } from "react"
