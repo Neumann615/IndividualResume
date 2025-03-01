@@ -1,9 +1,9 @@
 "use client"
-import {config} from "@/config"
-import {usePathname, useRouter} from "next/navigation"
-import {ThemeSwitch} from '@/components/Header/ThemeSwitch'
-import {createElement} from 'react'
-import {cn} from '@/utils'
+import { ThemeSwitch } from '@/components/Header/ThemeSwitch'
+import { config } from "@/config"
+import { cn } from '@/utils'
+import { usePathname, useRouter } from "next/navigation"
+import { createElement } from 'react'
 
 export function Navigation() {
     const router = useRouter()
@@ -17,16 +17,18 @@ export function Navigation() {
                         key={item.path}
                         onClick={() => router.push(item.path)}
                         className={
-                            cn("cursor-pointer tracking-wide", (pathname === item.path
-                                ? "font-bold text-zinc-500"
+                            cn("cursor-pointer tracking-wide duration-500", (pathname === item.path
+                                ? "font-bold text-zinc-600 scale-125"
                                 : "font-medium text-zinc-500"))
                         }
                     >
                         <span className={'max-md:hidden text-lg'}> {item.text}</span>
                         <span className={'hidden max-md:block'}>
-                        {createElement(item.icon, {
-                            className: 'className="w-5 text-zinc-500 cursor-pointer"'
-                        })}
+                            {createElement(item.icon, {
+                                className: cn("cursor-pointer tracking-wide duration-500", (pathname === item.path
+                                    ? "text-zinc-700 scale-125"
+                                    : "text-zinc-500"))
+                            })}
                         </span>
                     </div>
                 )

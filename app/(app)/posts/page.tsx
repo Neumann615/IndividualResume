@@ -1,19 +1,18 @@
-import {Separator} from '@/components/Separator'
-import {cn} from '@/utils'
-import {allPosts, type Post} from '@/.contentlayer/generated'
+import { allPosts, type Post } from '@/.contentlayer/generated'
+import { Container } from '@/components/Container'
+import { Separator } from '@/components/Separator'
+import { Tag } from '@/components/Tag'
+import { cn } from '@/utils'
 import dayjs from 'dayjs'
+import { Metadata } from 'next'
 import Link from 'next/link'
-import {Tag} from '@/components/Tag'
-import {Container} from '@/components/Container'
-import {Metadata} from 'next'
 
 
 export const metadata: Metadata = {
-    title: "Z | 博客",
-    description: "记录学习笔记、技术文档以及一些生活日常",
+    title: "Z - 博客文章"
 }
 
-function PostCard({post}: { post: Post; showCover?: boolean }) {
+function PostCard({ post }: { post: Post; showCover?: boolean }) {
     return (
         <Link
             href={`/posts/${post.slug}`}
@@ -30,7 +29,7 @@ function PostCard({post}: { post: Post; showCover?: boolean }) {
                     <time dateTime={post.date} className=" block text-xs text-gray-600">
                         {dayjs(post.date).format('YYYY-MM-DD')}
                     </time>
-                    <Separator orientation="vertical" className="h-5"/>
+                    <Separator orientation="vertical" className="h-5" />
                     {post.tags.map((tag) => (
                         <Tag key={tag} text={tag}></Tag>
                     ))}
@@ -46,17 +45,17 @@ export default function Posts() {
             // 按照日期降序排序
             return new Date(b.date).getTime() - new Date(a.date).getTime();
         })
-    return <Container className={'lg:w-[660px] w-auto'}>
-        <div className={"text-center mb-12 animate-in slide-in-from-left duration-1000"}>
-            <div className={"text-4xl font-bold tracking-wide mb-4"}>博客</div>
+    return <Container className={'max-w-[660px] w-auto'}>
+        <div className={"text-center mb-4 animate-in slide-in-from-left duration-1000"}>
+            <div className={"text-3xl font-bold tracking-wide mb-4"}>博客</div>
             <div className={"text-2xl text-slate-400 tracking-widest mb-4"}>
-                🐛兴趣爱好和技术分享🔧
+                🐛兴趣爱好和心得体会❤
             </div>
         </div>
         <div className={'animate-in fade-in zoom-in duration-1000'}>
             <div className={cn('grid grid-cols-1 gap-4', false ? 'grid-cols-2' : '')}>
                 {sortedPosts.map((post, idx) => (
-                    <PostCard showCover={false} key={idx} post={post}/>
+                    <PostCard showCover={false} key={idx} post={post} />
                 ))}
             </div>
         </div>

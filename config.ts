@@ -1,14 +1,10 @@
-import {BookText, Link, Sparkles} from "lucide-react"
+import { BookText, Link, LucideProps, Sparkles } from "lucide-react"
+import { ForwardRefExoticComponent, RefAttributes } from "react"
+import { LinkItem, ProjectItem, ProjectTypeEnum } from "./type"
 
 
 const linkSet: {
-    [key: string]: {
-        name: string
-        desc: string
-        logo: string
-        home: string
-        contribute?: string
-    }
+    [key: string]: LinkItem
 } = {
     'React': {
         name: 'React',
@@ -214,11 +210,11 @@ const linkSet: {
         logo: '/image/logo/html2canvas.png',
         home: 'https://www.html2canvas.cn/',
         contribute: 'https://github.com/niklasvh/html2canvas'
-    }, '': {
-        name: '',
-        desc: '',
-        logo: '',
-        home: '',
+    }, 'ico': {
+        name: 'ico',
+        desc: '在线制作icon图标',
+        logo: 'https://blog.nyaasu.top/usr/imgs/favicon.ico',
+        home: 'https://ico.nyaasu.top/',
         contribute: ''
     }, '': {
         name: '',
@@ -235,7 +231,19 @@ const linkSet: {
     },
 }
 
-export const config = {
+export const config: {
+    projectData: Array<ProjectItem>
+    menuData: Array<{
+        text: string
+        path: string
+        icon: ForwardRefExoticComponent<Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>>
+    }>
+    linkData: Array<{
+        name: string
+        label: string,
+        list: Array<LinkItem>
+    }>
+} = {
     menuData: [
         {
             text: "博客",
@@ -252,24 +260,11 @@ export const config = {
             path: "/link",
             icon: Link,
         },
-        // {
-        //     text: '学习笔记',
-        //     path: '/note'
-        // },
-        // {
-        //     text: 'demo',
-        //     path: '/demo'
-        // },
-        // {
-        //   text: "组件测试",
-        //   path: "/test",
-        //   icon: FlaskConical,
-        // },
     ],
     projectData: [
         {
             icon: "/logo.jpg",
-            title: "个人博客",
+            title: "Z-blog",
             description: "基于Next.js构建的个人博客",
             url: "https://xiaonuo.love",
             tags: [
@@ -282,11 +277,11 @@ export const config = {
                     color: "blue",
                 },
             ],
-            type: "个人",
+            type: ProjectTypeEnum.个人,
         },
         {
-            icon: "/logo.jpg",
-            title: "学习笔记",
+            icon: "/z-docs-logo.png",
+            title: "Z-docs",
             description: "基于vitePress构建的文档站点，记录一些知识点和常见问题",
             url: "https://docs.xiaonuo.love",
             tags: [
@@ -295,12 +290,12 @@ export const config = {
                     color: "green",
                 },
             ],
-            type: "个人",
+            type: ProjectTypeEnum.个人,
         },
         {
             icon: "/image/logo/uoffer.ico",
             title: "有录网模仿网站",
-            description: "基于Nuxt.js构建的模仿有录网开发的网站，主要是学习用",
+            description: "基于Nuxt.js构建的模仿有录网开发的网站，学习Nuxt用",
             url: "https://uoffer.xiaonuo.love",
             tags: [
                 {
@@ -312,11 +307,11 @@ export const config = {
                     color: "violet",
                 },
             ],
-            type: "个人",
+            type: ProjectTypeEnum.个人,
         },
         {
             icon: "/logo.jpg",
-            title: "Bupu-admin",
+            title: "Z-admin",
             description: "基于React、Antd构建的一套后台管理模板",
             url: "https://bupu-admin.xiaonuo.love/",
             tags: [
@@ -329,11 +324,11 @@ export const config = {
                     color: "blue",
                 },
             ],
-            type: "个人",
+            type: ProjectTypeEnum.个人,
         },
         {
             icon: "/logo.jpg",
-            title: "Bupu-board",
+            title: "Z-Board",
             description: "使用原生js及canvas构建的一个截屏工具以及白板",
             url: "https://bupu-board.xiaonuo.love/",
             tags: [
@@ -346,7 +341,7 @@ export const config = {
                     color: "slate",
                 },
             ],
-            type: "个人",
+            type: ProjectTypeEnum.个人,
         },
         {
             icon: "/image/logo/jyxz.svg",
@@ -367,7 +362,7 @@ export const config = {
                     color: "fuchsia",
                 },
             ],
-            type: "个人",
+            type: ProjectTypeEnum.公司,
         },
         {
             icon: "/image/logo/uniplat-admin.png",
@@ -384,7 +379,7 @@ export const config = {
                     color: "blue",
                 },
             ],
-            type: "个人",
+            type: ProjectTypeEnum.公司,
         },
         {
             icon: "/image/logo/anxin.png",
@@ -401,59 +396,59 @@ export const config = {
                     color: "green",
                 },
             ],
-            type: "个人",
-        },
+            type: ProjectTypeEnum.公司,
+        }
     ],
     linkData: [
         {
             name: "React",
             label: "React",
-            lists: [linkSet['React'], linkSet['Next.js'], linkSet['Umi.js'], linkSet['React-Router'], linkSet['Antd'], linkSet['ahooks']]
+            list: [linkSet['React'], linkSet['Next.js'], linkSet['Umi.js'], linkSet['React-Router'], linkSet['Antd'], linkSet['ahooks']]
         },
         {
             name: "Vue",
             label: "Vue",
-            lists: [linkSet['Vue'], linkSet['Nuxt.js'], linkSet['Pinia'], linkSet['Element-Plus'], linkSet['Vant'], linkSet['VueUse']]
+            list: [linkSet['Vue'], linkSet['Nuxt.js'], linkSet['Pinia'], linkSet['Element-Plus'], linkSet['Vant'], linkSet['VueUse']]
         },
         {
             name: 'Angular',
             label: 'Angular',
-            lists: [linkSet['Angular'], linkSet['Ng-Zorro']]
+            list: [linkSet['Angular'], linkSet['Ng-Zorro']]
         },
         {
             name: 'CSS',
             label: 'CSS',
-            lists: [linkSet['tailwindcss'], linkSet['UnoCSS']]
+            list: [linkSet['tailwindcss'], linkSet['UnoCSS']]
         },
         {
             name: '小程序',
             label: '小程序',
-            lists: [linkSet['Uni-App'], linkSet['Taro']]
+            list: [linkSet['Uni-App'], linkSet['Taro']]
         },
         {
             name: '构建工具',
             label: '构建工具',
-            lists: [linkSet['Vite'], linkSet['Rollup'], linkSet['Webpack']]
+            list: [linkSet['Vite'], linkSet['Rollup'], linkSet['Webpack']]
         },
         {
             name: '好用的库',
             label: '好用的库',
-            lists: [linkSet['Faker'], linkSet['html2canvas']]
+            list: [linkSet['Faker'], linkSet['html2canvas']]
         },
         {
             name: '语言及规范',
             label: '语言及规范',
-            lists: [linkSet['MDN'], linkSet['TypeScript'], linkSet['Rust']]
+            list: [linkSet['MDN'], linkSet['TypeScript'], linkSet['Rust']]
         },
         {
             name: '工具箱',
             label: '工具箱',
-            lists: [linkSet['photokit']]
+            list: [linkSet['photokit'], linkSet['ico']]
         },
         {
             name: '第三方平台',
             label: '第三方平台',
-            lists: [linkSet['百度地图开放平台'], linkSet['高德开放平台'], linkSet['讯飞开放平台']]
+            list: [linkSet['百度地图开放平台'], linkSet['高德开放平台'], linkSet['讯飞开放平台']]
         }
     ]
 }

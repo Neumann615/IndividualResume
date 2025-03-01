@@ -11,7 +11,7 @@ export function Avatar() {
                 height={40}
                 className={"w-10 h-10 rounded-full"}
                 src={"/logo.jpg"}
-                alt={"小诺小诺"}
+                alt={"z&pupu"}
             ></Image>
         </div>
     )
