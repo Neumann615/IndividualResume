@@ -31,7 +31,6 @@ export function GlobalBg() {
     const LENGTH = 15
     const SPACING = 40
     function getForceOnPoint(x: number, y: number, z: number) {
-        // https://p5js.org/reference/#/p5/noise
         return (noise(x / SCALE, y / SCALE, z) - 0.5) * 2 * TWO_PI
     }
 
@@ -55,9 +54,7 @@ export function GlobalBg() {
         background(theme === 'dark' ? '#000' : '#ffffff')
         stroke('#ccc')
         noFill()
-
         noiseSeed(+new Date())
-
         addPoints()
     }
 

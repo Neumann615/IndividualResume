@@ -3,5 +3,6 @@
 import posts__companyWorkLogMdx from './posts__company-work-log.mdx.json' assert { type: 'json' }
 import posts__fictionMdx from './posts__fiction.mdx.json' assert { type: 'json' }
 import posts__goodWayOfWorkingMdx from './posts__good-way-of-working.mdx.json' assert { type: 'json' }
+import posts__reactTourMdx from './posts__react-tour.mdx.json' assert { type: 'json' }
 
-export const allPosts = [posts__companyWorkLogMdx, posts__fictionMdx, posts__goodWayOfWorkingMdx]
+export const allPosts = [posts__companyWorkLogMdx, posts__fictionMdx, posts__goodWayOfWorkingMdx, posts__reactTourMdx]
