@@ -28,8 +28,8 @@ export function GlobalBg() {
     const offsetY = window.scrollY
 
     const SCALE = 200
-    const LENGTH = 10
-    const SPACING = 15
+    const LENGTH = 15
+    const SPACING = 40
     function getForceOnPoint(x: number, y: number, z: number) {
         // https://p5js.org/reference/#/p5/noise
         return (noise(x / SCALE, y / SCALE, z) - 0.5) * 2 * TWO_PI
