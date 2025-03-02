@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap');
+
 /*全局过度*/
 ::view-transition-image-pair(root) {
     isolation: auto;
@@ -33,11 +35,3 @@
 *{
     user-select: none;
 }
-
-
-html, body {
-    width: 100%;
-    height: 100%;
-    background-image: linear-gradient(#bcd2e490 2px, transparent 0);
-    background-size: 100% 7vmin;
-  }

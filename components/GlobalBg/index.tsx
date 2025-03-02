@@ -1,58 +1,107 @@
-"use client"
-import React from "react"
-import "@/index.css"
+'use client'
+import { useTheme } from "next-themes"
+import type { P5I } from 'p5i'
+import { p5i } from 'p5i'
+import { useEffect, useRef } from 'react'
+
 
 export function GlobalBg() {
-    //const bgContainer = useRef<HTMLDivElement>(null)
-    // const {theme, setTheme} = useTheme()
+    const el = useRef<HTMLDivElement>(null)
+    const { theme } = useTheme()
+    const {
+        mount,
+        unmount,
+        createCanvas,
+        background,
+        noFill,
+        stroke,
+        noise,
+        noiseSeed,
+        resizeCanvas,
+        cos,
+        sin,
+        TWO_PI,
+    } = p5i()
 
-    return (
-       <div
-                className={
-                    "z-[-999] absolute bottom-0 left-0 right-0 top-0 w-full h-full select-none"
-                }
-            >
-                <div className="w-full h-full relative overflow-hidden">
-                    {/*<div className={'absolute left-0 top-0  w-full h-full wxx-container1'}></div>*/}
-                    {/*<div className={'absolute left-0 top-0  w-full h-full wxx-container3'}></div>*/}
-                    {/*<div className={'absolute left-0 top-0  w-full h-full wxx-container4'}></div>*/}
-                    {/*<video style={{display: theme === 'dark' ? 'block' : 'none'}}*/}
-                    {/*       className="mix-blend-screen opacity-90 w-full h-full object-cover"*/}
-                    {/*       src="/video/loader.mov"*/}
-                    {/*       autoPlay loop muted playsInline></video>*/}
+    let w = window.innerWidth
+    let h = window.innerHeight
+    const offsetY = window.scrollY
 
-                    {/*<Image*/}
-                    {/*    src="/image/blue-lock/凯撒/4.jpeg"*/}
-                    {/*    className="absolute -left-0"*/}
-                    {/*    width={500}*/}
-                    {/*    height={500}*/}
-                    {/*    alt={""}*/}
-                    {/*></Image>*/}
-                    {/*<Image*/}
-                    {/*    src="/image/blue-lock/凯撒/2.jpeg"*/}
-                    {/*    className="absolute left-0 top-0"*/}
-                    {/*    width={700}*/}
-                    {/*    height={500}*/}
-                    {/*    alt={""}*/}
-                    {/*></Image>*/}
-                    {/*<Image*/}
-                    {/*    src="/image/blue-lock/凯撒/1.jpeg"*/}
-                    {/*    className="absolute -right-12 rotate-[16deg]"*/}
-                    {/*    width={800}*/}
-                    {/*    height={400}*/}
-                    {/*    alt={""}*/}
-                    {/*></Image>*/}
-                </div>
-            </div>
-    )
-    // return <div
-    //     className={`z-[-1] absolute bottom-0 left-0 right-0 top-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:16px_16px]`}
-    // />
-    // return <div
-    //     className={`z-[-1] absolute bottom-0 left-0 right-0 top-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px] ${
-    //         theme === 'dark' && mounted // 注意这里增加了 mounted 判断
-    //             ? '[mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]'
-    //             : '[mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)]'
-    //     }`}
-    // />
+    const SCALE = 200
+    const LENGTH = 10
+    const SPACING = 15
+    function getForceOnPoint(x: number, y: number, z: number) {
+        // https://p5js.org/reference/#/p5/noise
+        return (noise(x / SCALE, y / SCALE, z) - 0.5) * 2 * TWO_PI
+    }
+
+    const existingPoints = new Set<string>()
+    const points: { x: number, y: number, opacity: number }[] = []
+
+    function addPoints() {
+        for (let x = -SPACING / 2; x < w + SPACING; x += SPACING) {
+            for (let y = -SPACING / 2; y < h + offsetY + SPACING; y += SPACING) {
+                const id = `${x}-${y}`
+                if (existingPoints.has(id))
+                    continue
+                existingPoints.add(id)
+                points.push({ x, y, opacity: Math.random() * 0.5 + 0.5 })
+            }
+        }
+    }
+
+    function setup() {
+        createCanvas(w, h)
+        background(theme === 'dark' ? '#000' : '#ffffff')
+        stroke('#ccc')
+        noFill()
+
+        noiseSeed(+new Date())
+
+        addPoints()
+    }
+
+    function draw({ circle }: P5I) {
+        background(theme === 'dark' ? '#000' : '#ffffff')
+        const t = +new Date() / 10000
+
+        for (const p of points) {
+            const { x, y } = p
+            const rad = getForceOnPoint(x, y, t)
+            const length = (noise(x / SCALE, y / SCALE, t * 2) + 0.5) * LENGTH
+            const nx = x + cos(rad) * length
+            const ny = y + sin(rad) * length
+            if (theme === 'dark') {
+                stroke(115, 115, 115, (Math.abs(cos(rad)) * 0.8 + 0.2) * p.opacity * 255)
+            } else {
+                stroke(200, 200, 200, (Math.abs(cos(rad)) * 0.8 + 0.2) * p.opacity * 255)
+            }
+            circle(nx, ny - offsetY, 1)
+        }
+    }
+
+    function restart() {
+        if (el.current)
+            mount(el.current, { setup, draw })
+    }
+
+    function windowResize() {
+        w = window.innerWidth
+        h = window.innerHeight
+        resizeCanvas(w, h)
+        addPoints()
+
+    }
+
+
+    useEffect(() => {
+
+        restart()
+        window.addEventListener('resize', windowResize)
+        return () => {
+            unmount()
+            window.removeEventListener('resize', windowResize)
+        }
+    }, [theme])
+    return <div ref={el} className="z-[-999] fixed bottom-0 left-0 right-0 top-0 w-full h-full select-none"></div>
 }

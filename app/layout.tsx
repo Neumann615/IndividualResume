@@ -24,7 +24,7 @@ export default function RootLayout({
     const [isLoading, setIsLoading] = useState(true)
     return (
         <html lang="en" className={"m-0 h-full p-0 font-sans"}>
-        <body className={`w-full  h-full`}>
+        <body className={`w-full h-full`}>
         {isLoading ? <GlobalLoading loadingFinished={() => {
                 setIsLoading(false)
             }}/> :
