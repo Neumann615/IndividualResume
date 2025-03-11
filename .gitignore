@@ -31,6 +31,9 @@ yarn.lock
 
 # vercel
 .vercel
+.idea
+.contentlayer
+.vscode
 
 # typescript
 *.tsbuildinfo
