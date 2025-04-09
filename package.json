@@ -1,8 +1,8 @@
 {
-  "name": "pouf-popuf-blog",
+  "name": "IndividualResume",
   "version": "1.0.0",
-  "author": "wxxFe",
-  "description": "个人博客",
+  "author": "",
+  "description": "个人简介",
   "private": true,
   "scripts": {
     "dev": "contentlayer build && next dev",
